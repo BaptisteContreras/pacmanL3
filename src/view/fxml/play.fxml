@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Arc?>
+
+
+<AnchorPane fx:controller="controller.PlayController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Arc fill="#eeff1f" layoutX="199.0" layoutY="200.0" length="270.0" radiusX="100.0" radiusY="100.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+      <Button fx:id="btnBack" layoutY="14.0" mnemonicParsing="false"  text="Menu" />
+      <Button onAction="#startGame" layoutY="14.0" layoutX="70.0" mnemonicParsing="false"  text="Commencer" />
+   </children>
+</AnchorPane>

@@ -26,4 +26,6 @@ public abstract class Player {
     public Direction getDirection (){
         return character.getDirection();
     }
+
+    public Direction getMove(){return Direction.TOP;}
 }
