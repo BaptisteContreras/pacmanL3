@@ -43,6 +43,7 @@ public class MenuController extends Controller {
 
 
     private void loadSplashCreen() throws IOException {
+
         MainFrame.init = true;
         Pane pane = FXMLLoader.load(getClass().getResource(("../view/fxml/splash.fxml")));
         root.getChildren().setAll(pane);
@@ -67,6 +68,7 @@ public class MenuController extends Controller {
         fadeOut.setOnFinished((e) -> {
             try {
                 AnchorPane parentContent = FXMLLoader.load(getClass().getResource(("../view/fxml/menu.fxml")));
+                MainFrame.currentStage.setMaximized(true);
                 root.getChildren().setAll(parentContent);
             } catch (IOException ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
@@ -82,6 +84,7 @@ public class MenuController extends Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
        // Scene scene = this.root.getScene();
         //root.translateYProperty().set(scene.getHeight());
         PlayScene ps = new PlayScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());

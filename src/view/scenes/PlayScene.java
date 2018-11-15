@@ -1,8 +1,12 @@
 package view.scenes;
 
+import javafx.beans.Observable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import model.JeuModel;
 
@@ -39,5 +43,13 @@ public class PlayScene extends Scene {
 
     public void setModel(JeuModel model) {
         this.model = model;
+    }
+
+    public void test(){
+        AnchorPane t = (AnchorPane) getRoot();
+        for (Node a : t.getChildren()){
+            System.out.println(a);
+        }
+        System.out.println("debug");
     }
 }

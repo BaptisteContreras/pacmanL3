@@ -32,6 +32,7 @@ public class PlayController extends Controller {
         System.out.println("game start");
         model = new JeuModel();
         ((PlayScene)btnBack.getScene()).setModel(model);
+        ((PlayScene)btnBack.getScene()).test();
     }
 
 
