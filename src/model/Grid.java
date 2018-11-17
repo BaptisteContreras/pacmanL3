@@ -12,6 +12,8 @@ import model.entities.characters.PacMan;
 import model.entities.consumables.Consumable;
 import model.entities.consumables.EffectConsumable;
 import model.entities.players.Player;
+import model.wrapper.Wrapper;
+import model.wrapper.Wrapper2D;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +28,7 @@ public class Grid {
     private int width; // x = j
     private int height; // y = i
     private int respawnTime;
+    private Wrapper2D wrapper;
 
 
     public Grid(int gridWidth, int gridHeight) {
@@ -102,6 +105,11 @@ public class Grid {
         Coord2D move = (Coord2D) m;
         Character perso = p.getCharacter();
         if (!p.getCharacter().isAlive())
+            return false;
+        // si le move ne peut être wrapper on renvois tel quel sinon le nouveau et envoyé
+        move = (Coord2D) wrapper.wrap(move,grille);
+
+        if (move.getX() < 0 || move.getX() >= width || move.getY() < 0 || move.getY() >= height )
             return false;
 
         // Verification si on va dans un mur
