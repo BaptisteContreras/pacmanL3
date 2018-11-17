@@ -1,5 +1,7 @@
 package model.coordonates;
 
+import java.util.Objects;
+
 public class Coord2D extends Coord {
 
     private int x;
@@ -24,6 +26,21 @@ public class Coord2D extends Coord {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coord2D)) return false;
+        Coord2D coord2D = (Coord2D) o;
+        return x == coord2D.getX() &&
+                y == coord2D.getY();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(x, y);
     }
 
     @Override

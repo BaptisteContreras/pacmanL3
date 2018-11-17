@@ -1,5 +1,7 @@
 package model.entities.consumables;
 
+import model.entities.players.Player;
+
 public abstract class EffectConsumable extends Consumable {
 
     protected int duree;
@@ -8,5 +10,5 @@ public abstract class EffectConsumable extends Consumable {
         super(nbPoints);
     }
 
-    public abstract void applyEffect();
+    public abstract void applyEffect(Player p);
 }

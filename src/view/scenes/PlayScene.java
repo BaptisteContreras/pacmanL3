@@ -6,7 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Paint;
 import model.JeuModel;
 
@@ -46,10 +48,18 @@ public class PlayScene extends Scene {
     }
 
     public void test(){
-        AnchorPane t = (AnchorPane) getRoot();
-        for (Node a : t.getChildren()){
+        AnchorPane root = (AnchorPane) getRoot();
+        for (Node a : root.getChildren()){
             System.out.println(a);
         }
         System.out.println("debug");
+        GridPane gridpane = new GridPane();
+        for (int i = 0; i < 10; i++) {
+            RowConstraints row = new RowConstraints(50);
+            gridpane.getRowConstraints().add(row);
+        }
+
+
+        root.getChildren().add(gridpane);
     }
 }

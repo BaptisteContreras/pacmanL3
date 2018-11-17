@@ -28,4 +28,8 @@ public abstract class Player {
     }
 
     public Direction getMove(){return Direction.TOP;}
+
+    public void upScore(int up){
+
+    }
 }

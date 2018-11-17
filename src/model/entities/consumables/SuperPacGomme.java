@@ -1,5 +1,7 @@
 package model.entities.consumables;
 
+import model.entities.players.Player;
+
 public class SuperPacGomme extends EffectConsumable {
 
 
@@ -8,7 +10,7 @@ public class SuperPacGomme extends EffectConsumable {
     }
 
     @Override
-    public void applyEffect() {
+    public void applyEffect(Player p) {
 
     }
 }
