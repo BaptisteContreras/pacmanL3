@@ -6,6 +6,7 @@ import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
 import model.entities.cells.Wall;
 import model.entities.characters.Character;
+import model.entities.characters.Ennemy;
 import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
 import model.entities.consumables.Consumable;
@@ -24,6 +25,7 @@ public class Grid {
     private Coord pacmanCoord;
     private int width; // x = j
     private int height; // y = i
+    private int respawnTime;
 
 
     public Grid(int gridWidth, int gridHeight) {
@@ -95,9 +97,13 @@ public class Grid {
     }
 
     private boolean moveCorrect(Player p, Coord c, Coord m){
+        // TODO verification en cas de sortie du tableau et wrap around !
         Coord2D currentPos = (Coord2D) c;
         Coord2D move = (Coord2D) m;
         Character perso = p.getCharacter();
+        if (!p.getCharacter().isAlive())
+            return false;
+
         // Verification si on va dans un mur
         if (grille[move.getY()][move.getX()] instanceof Wall)
             return false;
@@ -135,9 +141,30 @@ public class Grid {
         Player pacman =  getPacManCoordInMap();
         if (pacman != null){
             Coord2D currentCoord = (Coord2D) playersCoord.get(pacman);
+            Set keys = playersCoord.keySet();
+            Iterator it = keys.iterator();
+            while (it.hasNext()){
+                Player tmpPlayer = (Player) it.next();
+                Coord2D tmpCoord = (Coord2D) playersCoord.get(tmpPlayer);
+                if (!(tmpPlayer.getCharacter() instanceof PacMan))
+                    if (tmpCoord.equals(currentCoord)){
+                        if (pacman.getCharacter().isInvulnerability()){
+                            pacman.upScore(((Ennemy)tmpPlayer.getCharacter()).getNbPoints());
+                            tmpPlayer.getCharacter().setAlive(false);
+                            tmpPlayer.getCharacter().setRespawnTime(respawnTime);
+                            playersCoord.replace(tmpPlayer,new Coord2D(-1,-1));
+                        }else{
+                            return true;
+                        }
+                    }
+            }
         }
         return false;
 
-        return false;
+
+    }
+
+    public void respawn(Player p, Coord spawnGhost) {
+        playersCoord.replace(p,spawnGhost);
     }
 }

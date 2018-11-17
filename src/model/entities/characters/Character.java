@@ -3,7 +3,7 @@ package model.entities.characters;
 import model.Direction;
 import model.entities.Entity;
 
-public class Character extends Entity {
+public abstract class Character extends Entity {
 
     protected Direction direction;
     protected int speed;
