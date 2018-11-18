@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import model.JeuModel;
+import model.coordonates.Coord2D;
 import view.MainFrame;
 import view.scenes.MenuScene;
 import view.scenes.PlayScene;
@@ -20,6 +22,13 @@ public class PlayController extends Controller {
     @FXML
     private Button btnBack;
 
+    @FXML
+    private Pane gameroot;
+
+    @FXML
+    private Pane scoreroot;
+
+
     private JeuModel model;
 
     @Override
@@ -31,8 +40,10 @@ public class PlayController extends Controller {
     public void startGame(){
         System.out.println("game start");
         model = new JeuModel();
-        ((PlayScene)btnBack.getScene()).setModel(model);
-        ((PlayScene)btnBack.getScene()).test();
+        model.initV1(10,5,23,new Coord2D(2,5),"bapt");
+
+        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,20,20);
+        //((PlayScene)btnBack.getScene()).test();
     }
 
 

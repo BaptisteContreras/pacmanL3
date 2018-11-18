@@ -5,7 +5,7 @@ import model.coordonates.Coord;
 
 public class Wall extends Cell {
 
-    public Wall(String skin, Coord c) {
-        super(skin, c);
+    public Wall(Coord c) {
+        super("/assets/game/border.jpg", c);
     }
 }

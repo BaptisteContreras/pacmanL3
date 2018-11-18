@@ -106,9 +106,11 @@ public class Grid {
         Character perso = p.getCharacter();
         if (!p.getCharacter().isAlive())
             return false;
+
         // si le move ne peut être wrapper on renvois tel quel sinon le nouveau et envoyé
         move = (Coord2D) wrapper.wrap(move,grille);
 
+        // Verification de sortie du tableau
         if (move.getX() < 0 || move.getX() >= width || move.getY() < 0 || move.getY() >= height )
             return false;
 
@@ -144,7 +146,6 @@ public class Grid {
     }
 
     public boolean hasCollision() {
-        // A FINIR
         // Si pacman peut manger des fantome : il les mange dans cette methode
         Player pacman =  getPacManCoordInMap();
         if (pacman != null){

@@ -6,7 +6,7 @@ public class SuperPacGomme extends EffectConsumable {
 
 
     public SuperPacGomme(int nbPoints) {
-        super(nbPoints);
+        super("/assets/game/pacgum.jpg",nbPoints);
     }
 
     @Override

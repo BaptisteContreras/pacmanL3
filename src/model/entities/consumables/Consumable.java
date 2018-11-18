@@ -1,12 +1,16 @@
 package model.entities.consumables;
 
-public abstract class Consumable {
+import model.entities.Entity;
+
+public abstract class Consumable extends Entity {
 
     protected int nbPoints;
 
-    public Consumable(int nbPoints) {
+    public Consumable(String skin, int nbPoints) {
+        super(skin);
         this.nbPoints = nbPoints;
     }
+
 
     public int getNbPoints() {
         return nbPoints;
