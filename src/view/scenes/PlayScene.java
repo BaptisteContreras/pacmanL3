@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -77,38 +78,17 @@ public class PlayScene extends Scene {
     }
 
     public void initScene(Pane game, Pane score, JeuModel model, int width, int height){
+        // TODO affichage pour map rectangle
         cases = new Rectangle[height][width];
-        System.out.println(score);
         setModel(model);
         setRootGame(game);
         setRootScore(score);
-        System.out.println("Game pane size = " + game.getWidth() + " / " + game.getHeight());
-        ScreenRatio = game.getWidth() >= game.getHeight() ? game.getWidth()/game.getHeight() : game.getHeight()/game.getWidth();
-        System.out.println(ScreenRatio);
-        adaptedWidth = game.getWidth() >= game.getHeight() ? game.getWidth()/ScreenRatio : game.getWidth();
-        adaptedHeight = game.getHeight() >= game.getWidth() ? game.getHeight()/ScreenRatio : game.getHeight();
-        tileWidth = adaptedWidth/width;
-        tileHeight = adaptedHeight/height;
-        //startX = ((game.getWidth() - adaptedWidth)); // pour centrer
-        startX = ((getWidth()-game.getWidth())/2) + ((game.getWidth() - adaptedWidth)/2); // pour centrer
-        //startY = (game.getHeight() - adaptedHeight)/2;
-        startY = ((getHeight()-game.getHeight())/2)+(game.getHeight() - adaptedHeight)/2;
-        System.out.println(startX + " :: " + startY);
-        System.out.println(adaptedWidth + " == " + adaptedHeight);
-        System.out.println(tileWidth + " :: " + tileHeight);
-        System.out.println("---------------");
-        Image img = new Image("/assets/game/border.jpg");
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                Rectangle tmpRect = new Rectangle(tileWidth,tileHeight);
-                System.out.println(startX+(tileWidth*j)+" @@ " + (startY+(tileHeight*i)));
-                tmpRect.setLayoutX(startX+(tileWidth*j));
-                tmpRect.setLayoutY(startY+(tileHeight*i));
-                tmpRect.setFill(new ImagePattern(img));
-                cases[i][j] = tmpRect;
-                game.getChildren().add(tmpRect);
-            }
-        }
+       // getRoot().setStyle("-fx-background-color: #" + "000000");
+        if (width == height)
+            initSquareScreen(game,score,width,height);
+        else
+            initRectScreen(game,score,width,height);
+
      //   Rectangle rect = new Rectangle(100,50);
        // Image img = new Image("/assets/game/pacman.png");
       //  rect.setFill(new ImagePattern(img));
@@ -126,5 +106,54 @@ public class PlayScene extends Scene {
 
     public void setRootScore(Pane rootScore) {
         this.rootScore = rootScore;
+    }
+
+    private void initSquareScreen(Pane game, Pane score, int width, int height){
+
+        ScreenRatio = getWidth() >= getHeight() ? getWidth()/getHeight() : getHeight()/getWidth();
+        adaptedWidth = getWidth() >= getHeight() ? getWidth()/ScreenRatio : getWidth();
+        adaptedHeight = getHeight() >= getWidth() ? getHeight()/ScreenRatio : getHeight();
+        tileWidth = adaptedWidth/width;
+        tileHeight = adaptedHeight/height;
+        startX = (getWidth()-(adaptedWidth))/2; // pour centrer
+
+        Image img = new Image("/assets/game/border.jpg");
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Rectangle tmpRect = new Rectangle(tileWidth,tileHeight);
+                tmpRect.setLayoutX(startX+(tileWidth*j));
+                tmpRect.setLayoutY((tileHeight*i));
+                tmpRect.setFill(new ImagePattern(img));
+                cases[i][j] = tmpRect;
+                game.getChildren().add(tmpRect);
+            }
+        }
+
+    }
+
+    private void initRectScreen(Pane game, Pane score, int width, int height){
+        System.out.println("rect");
+        int caseRatio = width >= height ?  width/height : height/width;
+        ScreenRatio = 1.;
+        adaptedWidth = getWidth()-((getWidth()*10)/100);
+        adaptedHeight = getHeight();
+        tileWidth = width >= height ? (adaptedWidth/width)/2 : (adaptedWidth/width)/2;
+        tileHeight = height >= width ? adaptedHeight/height : (adaptedHeight/height)/caseRatio;
+        startX = (getWidth()-(adaptedWidth)); // pour centrer
+        startY = (getHeight()-(adaptedHeight)); // pour centrer
+
+        Image img = new Image("/assets/game/border.jpg");
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Rectangle tmpRect = new Rectangle(tileWidth,tileHeight);
+                tmpRect.setLayoutX(startX+(tileWidth*j));
+                tmpRect.setLayoutY(startY+(tileHeight*i));
+                tmpRect.setFill(new ImagePattern(img));
+                cases[i][j] = tmpRect;
+                game.getChildren().add(tmpRect);
+            }
+        }
     }
 }

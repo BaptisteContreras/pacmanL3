@@ -8,7 +8,7 @@
    <children>
       <Button fx:id="btnBack" layoutY="1.0" mnemonicParsing="false" text="Menu" />
       <Button layoutX="47.0" layoutY="1.0" mnemonicParsing="false" onAction="#startGame" text="Commencer" />
-      <Pane fx:id="gameroot" layoutY="27.0" prefHeight="377.0" prefWidth="600.0" />
-      <Pane fx:id="scoreroot" layoutX="120.0" layoutY="-5.0" prefHeight="25.0" prefWidth="482.0" />
+      <Pane fx:id="gameroot" layoutX="127.0" layoutY="-3.0" prefHeight="407.0" prefWidth="473.0" />
+      <Pane fx:id="scoreroot" layoutY="26.0" prefHeight="375.0" prefWidth="127.0" />
    </children>
 </AnchorPane>

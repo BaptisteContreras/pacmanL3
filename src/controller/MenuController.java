@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import view.MainFrame;
 import view.scenes.MenuScene;
@@ -88,6 +89,7 @@ public class MenuController extends Controller {
        // Scene scene = this.root.getScene();
         //root.translateYProperty().set(scene.getHeight());
         PlayScene ps = new PlayScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());
+        ps.getRoot().setStyle("-fx-background-color: #" + "000000");
         MainFrame.currentStage.setScene(ps);
 
         //parentContainer.getChildren().add(root);

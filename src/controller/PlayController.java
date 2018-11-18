@@ -42,7 +42,7 @@ public class PlayController extends Controller {
         model = new JeuModel();
         model.initV1(10,5,23,new Coord2D(2,5),"bapt");
 
-        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,20,20);
+        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,25,25);
         //((PlayScene)btnBack.getScene()).test();
     }
 
