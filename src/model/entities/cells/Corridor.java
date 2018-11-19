@@ -26,10 +26,10 @@ public class Corridor extends Cell {
         return persos;
     }
     public void addCharacter(Character c){
-
+        persos.add(c);
     }
     public void delCharacter(Character c){
-
+        persos.clear();
     }
 
     public void setConsumable(Consumable consumable) {

@@ -1,12 +1,14 @@
 package controller;
 
 import javafx.animation.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -90,6 +92,7 @@ public class MenuController extends Controller {
         //root.translateYProperty().set(scene.getHeight());
         PlayScene ps = new PlayScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());
         ps.getRoot().setStyle("-fx-background-color: #" + "000000");
+
         MainFrame.currentStage.setScene(ps);
 
         //parentContainer.getChildren().add(root);

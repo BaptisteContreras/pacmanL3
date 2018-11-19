@@ -27,7 +27,7 @@ public abstract class Player {
         return character.getDirection();
     }
 
-    public Direction getMove(){return Direction.TOP;}
+    public Direction getMove(){return getDirection();}
 
     public void upScore(int up){
 

@@ -17,4 +17,6 @@ public abstract class Entity {
     public void setSkin(String skin) {
         this.skin = skin;
     }
+
+
 }

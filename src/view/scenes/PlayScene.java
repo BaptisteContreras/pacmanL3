@@ -15,6 +15,15 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.JeuModel;
+import model.entities.cells.Cell;
+import model.entities.cells.Corridor;
+import model.entities.cells.Wall;
+import model.entities.characters.Character;
+import model.entities.characters.Ennemy;
+import model.entities.characters.Ghost;
+import model.entities.characters.PacMan;
+
+import java.util.Observer;
 
 public class PlayScene extends Scene {
 
@@ -89,6 +98,15 @@ public class PlayScene extends Scene {
         else
             initRectScreen(game,score,width,height);
 
+        updateScreen(model.getCells(),game,score,width,height);
+        model.addObserver(new Observer() {
+            @Override
+            public void update(java.util.Observable o, Object arg) {
+                updateScreen(model.getCells(),game,score,width,height);
+                System.out.println("up to date");
+            }
+        });
+
      //   Rectangle rect = new Rectangle(100,50);
        // Image img = new Image("/assets/game/pacman.png");
       //  rect.setFill(new ImagePattern(img));
@@ -153,6 +171,38 @@ public class PlayScene extends Scene {
                 tmpRect.setFill(new ImagePattern(img));
                 cases[i][j] = tmpRect;
                 game.getChildren().add(tmpRect);
+            }
+        }
+    }
+
+    public void updateScreen(Cell[][] grille,Pane game, Pane score, int width, int height){
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                String path = "/assets/game/border.jpg";
+                Cell cell = grille[i][j];
+
+                if (cell instanceof Wall){ // WALL
+                    path = cell.getSkin();
+                }else{ // Corridor
+                    Corridor corri = (Corridor) cell;
+                    path = corri.getSkin();
+                    if (corri.getConsumable() != null){
+                        path = corri.getConsumable().getSkin();
+                    }
+                    boolean ghosted = false;
+                    for (Character c:corri.getPersos()){
+                        if (c instanceof Ennemy){
+                            ghosted = true;
+                            path = c.getSkin();
+                        }
+                        if ((c instanceof PacMan) && !ghosted ){
+                            path = c.getSkin();
+                        }
+                    }
+                }
+                // Create image
+                Image img = new Image(path);
+                cases[i][j].setFill(new ImagePattern(img));
             }
         }
     }

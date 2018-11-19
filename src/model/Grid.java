@@ -31,7 +31,14 @@ public class Grid {
     private Wrapper2D wrapper;
 
 
+    public Grid(){
+        playersCoord = new HashMap<>();
+        wrapper = new Wrapper2D();
+    }
+
+
     public Grid(int gridWidth, int gridHeight) {
+        this();
         width = gridWidth;
         height = gridHeight;
 
@@ -39,6 +46,7 @@ public class Grid {
     }
 
     public Grid(Cell[][] grid) {
+        this();
         height = grid.length;
         if (height > 0)
             width = grid[0].length;
@@ -108,7 +116,7 @@ public class Grid {
             return false;
 
         // si le move ne peut être wrapper on renvois tel quel sinon le nouveau et envoyé
-        move = (Coord2D) wrapper.wrap(move,grille);
+      //  move = (Coord2D) wrapper.wrap(move,grille);
 
         // Verification de sortie du tableau
         if (move.getX() < 0 || move.getX() >= width || move.getY() < 0 || move.getY() >= height )
@@ -155,7 +163,7 @@ public class Grid {
             while (it.hasNext()){
                 Player tmpPlayer = (Player) it.next();
                 Coord2D tmpCoord = (Coord2D) playersCoord.get(tmpPlayer);
-                if (!(tmpPlayer.getCharacter() instanceof PacMan))
+                if (!(tmpPlayer.getCharacter() instanceof PacMan)){
                     if (tmpCoord.equals(currentCoord)){
                         if (pacman.getCharacter().isInvulnerability()){
                             pacman.upScore(((Ennemy)tmpPlayer.getCharacter()).getNbPoints());
@@ -163,14 +171,37 @@ public class Grid {
                             tmpPlayer.getCharacter().setRespawnTime(respawnTime);
                             playersCoord.replace(tmpPlayer,new Coord2D(-1,-1));
                         }else{
+                            System.out.println(tmpCoord + " : " + tmpPlayer.getCharacter());
                             return true;
                         }
                     }
+                }
+
             }
         }
         return false;
 
 
+    }
+
+    public Cell[][] getGrille() {
+        return grille;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getRespawnTime() {
+        return respawnTime;
+    }
+
+    public void setPlayerCoord(Player p, Coord c){
+        playersCoord.put(p,c);
     }
 
     public void respawn(Player p, Coord spawnGhost) {

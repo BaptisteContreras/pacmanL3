@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import model.coordonates.Coord;
 import model.coordonates.Coord2D;
 import model.entities.cells.Cell;
@@ -17,6 +15,8 @@ import model.entities.players.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class JeuModel extends java.util.Observable {
 
     private Grid grid;
@@ -24,9 +24,11 @@ public class JeuModel extends java.util.Observable {
     private int nbConsombaleLeft;
     private boolean finish;
     private Coord spawnGhost;
+    private boolean start;
 
     public JeuModel() {
         finish = false;
+        start = false;
         playerList = new ArrayList<>();
     }
 
@@ -49,9 +51,19 @@ public class JeuModel extends java.util.Observable {
             setChanged();
             notifyObservers();
             finish = gameFinished();
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             // notify view
+            setChanged();
+            notifyObservers();
         }
+        System.out.println("finished ! gg");
         // TODO retourner resultat partie et notifier vue
+        setChanged();
+        notifyObservers();
 
     }
 
@@ -60,7 +72,18 @@ public class JeuModel extends java.util.Observable {
 
     }
 
+    public Cell[][] getCells(){
+        return grid.getGrille();
+    }
+
     public void initV1(int w, int h, int conso, Coord2D spwan, String pseudo){
+        start = true;
+        Player p1 = new HumanPlayer(new PacMan(Direction.TOP,5,true,false,0),pseudo);
+        playerList.add(p1);
+        Player p2 =new HumanPlayer(new Ghost(Direction.RIGHT,5,true,false,0,10),"ia");
+        playerList.add(p2);
+
+
         Cell[][] tmp = new Cell[5][10];
         // Ligne 1
         tmp[0][0] = new Wall(null);
@@ -68,45 +91,29 @@ public class JeuModel extends java.util.Observable {
         tmp[0][2] = new Wall(null);
         tmp[0][3] = new Wall(null);
         tmp[0][4] = new Wall(null);
-        tmp[0][5] = new Wall(null);
-        tmp[0][6] = new Corridor(null,new PacGomme(5));
-        tmp[0][7] = new Wall(null);
-        tmp[0][8] = new Wall(null);
-        tmp[0][9] = new Wall(null);
+
         // Ligne 2
         tmp[1][0] = new Wall(null);
         tmp[1][1] = new Corridor(null,new PacGomme(5));
         tmp[1][2] = new Wall(null);
         tmp[1][3] = new Corridor(null,new PacGomme(5));
         tmp[1][4] = new Corridor(null,new PacGomme(5));
-        tmp[1][5] = new Corridor(null,new PacGomme(5));
-        tmp[1][6] = new Corridor(null,new PacGomme(5));
-        tmp[1][7] = new Wall(null);
-        tmp[1][8] = new Corridor(null,new PacGomme(5));
-        tmp[1][9] = new Corridor(null,new PacGomme(5));
+        ((Corridor)tmp[1][3]).addCharacter(playerList.get(0).getCharacter());
+
         // Ligne 3
         tmp[2][0] = new Wall(null);
         tmp[2][1] = new Corridor(null,new PacGomme(5));
         tmp[2][2] = new Wall(null);
         tmp[2][3] = new Corridor(null,new PacGomme(5));
         tmp[2][4] = new Corridor(null,new PacGomme(5));
-        tmp[2][5] = new Corridor(null,new PacGomme(5));
-        tmp[2][6] = new Corridor(null,new PacGomme(5));
-        tmp[2][7] = new Wall(null);
-        tmp[2][8] = new Corridor(null,new PacGomme(5));
-        tmp[2][9] = new Corridor(null,new PacGomme(5));
+
         // Ligne 4
         tmp[3][0] = new Wall(null);
         tmp[3][1] = new Corridor(null,new PacGomme(5));
         tmp[3][2] = new Wall(null);
         tmp[3][3] = new Corridor(null,new PacGomme(5));
+        ((Corridor)tmp[3][3]).addCharacter(playerList.get(1).getCharacter());
         tmp[3][4] = new Corridor(null,new PacGomme(5));
-        tmp[3][5] = new Corridor(null,new PacGomme(5));
-        tmp[3][6] = new Corridor(null,new PacGomme(5));
-        tmp[3][7] = new Wall(null);
-        tmp[3][8] = new Corridor(null,new PacGomme(5));
-        tmp[3][9] = new Corridor(null,new PacGomme(5));
-
 
         // Ligne 5
         tmp[4][0] = new Wall(null);
@@ -114,18 +121,15 @@ public class JeuModel extends java.util.Observable {
         tmp[4][2] = new Wall(null);
         tmp[4][3] = new Wall(null);
         tmp[4][4] = new Wall(null);
-        tmp[4][5] = new Wall(null);
-        tmp[4][6] = new Corridor(null,new PacGomme(5));
-        tmp[4][7] = new Wall(null);
-        tmp[4][8] = new Wall(null);
-        tmp[4][9] = new Wall(null);
+
 
 
         grid = new Grid(tmp);
         nbConsombaleLeft = conso;
         spawnGhost = spwan;
-        playerList.add(new HumanPlayer(new PacMan(Direction.TOP,5,true,false,0),pseudo));
-        playerList.add(new HumanPlayer(new Ghost(Direction.TOP,5,true,false,0,10),pseudo));
+        grid.setPlayerCoord(p1,new Coord2D(3,1));
+        grid.setPlayerCoord(p2,new Coord2D(3,3));
+
 
     }
 
@@ -133,6 +137,38 @@ public class JeuModel extends java.util.Observable {
         if (nbConsombaleLeft == 0 || grid.hasCollision() )
             return true;
         return false;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
+    }
+
+    public int getNbConsombaleLeft() {
+        return nbConsombaleLeft;
+    }
+
+    public void setNbConsombaleLeft(int nbConsombaleLeft) {
+        this.nbConsombaleLeft = nbConsombaleLeft;
+    }
+
+    public boolean isFinish() {
+        return finish;
+    }
+
+    public void setFinish(boolean finish) {
+        this.finish = finish;
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+
+    public void setStart(boolean start) {
+        this.start = start;
     }
 
     public void setDirection(Player player, Direction direction){
