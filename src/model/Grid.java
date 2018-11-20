@@ -59,6 +59,7 @@ public class Grid {
     public boolean applyMove(Player player){
         Coord currentCoord = playersCoord.get(player);
         Coord moveCoord = translateDirection(player.getMove(),currentCoord);
+        moveCoord = (Coord2D) wrapper.wrap(moveCoord,grille,player.getCharacter());
         if (moveCorrect(player,currentCoord,moveCoord)){
             playersCoord.replace(player,moveCoord);
             ((Corridor)grille[((Coord2D)moveCoord).getY()][((Coord2D)moveCoord).getX()]).addCharacter(player.getCharacter());
@@ -119,7 +120,7 @@ public class Grid {
             return false;
 
         // si le move ne peut être wrapper on renvois tel quel sinon le nouveau et envoyé
-      //  move = (Coord2D) wrapper.wrap(move,grille);
+
 
         // Verification de sortie du tableau
         if (move.getX() < 0 || move.getX() >= width || move.getY() < 0 || move.getY() >= height )
