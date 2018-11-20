@@ -60,7 +60,8 @@ public class JeuModel extends java.util.Observable {
                 e.printStackTrace();
             }
             // notify view
-
+            setChanged();
+            notifyObservers();
         }
         System.out.println("finished ! gg");
         // TODO retourner resultat partie et notifier vue

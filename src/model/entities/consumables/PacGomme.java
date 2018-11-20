@@ -4,6 +4,6 @@ public class PacGomme extends NoEffectConsumable {
 
 
     public PacGomme(int nbPoints) {
-        super("/assets/game/pacgum.jpg", nbPoints);
+        super("/assets/game/pacgum.png", nbPoints);
     }
 }

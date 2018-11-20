@@ -23,7 +23,9 @@ import model.entities.characters.Character;
 import model.entities.characters.Ennemy;
 import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
+import view.AssetLoader;
 
+import java.util.Map;
 import java.util.Observer;
 
 public class PlayScene extends Scene {
@@ -39,6 +41,8 @@ public class PlayScene extends Scene {
     private Rectangle[][] cases;
     private Double startX;
     private Double startY;
+    private Map<String,ImagePattern> assets;
+    private AssetLoader assetLoader;
 
     public PlayScene(Parent root) {
         super(root);
@@ -72,23 +76,14 @@ public class PlayScene extends Scene {
         this.model = model;
     }
 
-    public void test(){
-        AnchorPane root = (AnchorPane) getRoot();
-        for (Node a : root.getChildren()){
-           // System.out.println(a);
-        }
-        System.out.println("debug");
-        System.out.println(rootGame);
-        System.out.println(rootScore);
-
-    }
-
     public Pane getRootGame() {
         return rootGame;
     }
 
     public void initScene(Pane game, Pane score, JeuModel model, int width, int height){
         // TODO affichage pour map rectangle
+        assetLoader = new AssetLoader("assets/game/");
+        assets = assetLoader.loadAsset();
         cases = new Rectangle[height][width];
         setModel(model);
         setRootGame(game);
@@ -194,19 +189,22 @@ public class PlayScene extends Scene {
                         path = corri.getConsumable().getSkin();
                     }
                     boolean ghosted = false;
+                    boolean invu = false;
                     for (Character c:corri.getPersos()){
-                        if (c instanceof Ennemy){
+                        if (c instanceof Ennemy && !invu){
                             ghosted = true;
                             path = c.getSkin();
                         }
-                        if ((c instanceof PacMan) && !ghosted ){
+                        if ((c instanceof PacMan) && (!ghosted || c.isInvulnerability()) ){
                             path = c.getSkin();
+                            invu = true;
                         }
                     }
                 }
                 // Create image
-                Image img = new Image(path);
-                cases[i][j].setFill(new ImagePattern(img));
+               // Image img = new Image(path);
+              //  cases[i][j].setFill(new ImagePattern(img));
+                cases[i][j].setFill(assets.get(path));
             }
         }
     }
