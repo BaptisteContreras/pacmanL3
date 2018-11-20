@@ -8,6 +8,7 @@ import model.entities.cells.Wall;
 import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
 import model.entities.consumables.PacGomme;
+import model.entities.consumables.SuperPacGomme;
 import model.entities.players.AIPlayer;
 import model.entities.players.HumanPlayer;
 import model.entities.players.Player;
@@ -38,8 +39,8 @@ public class JeuModel extends java.util.Observable {
         while (!finish){
             for (Player p : playerList){
                 if (p.getCharacter().isAlive()){
-                    grid.applyMove(p);
                     grid.eatConsumable(p);
+                    grid.applyMove(p);
                 }else{
                     p.getCharacter().setRespawnTime(p.getCharacter().getRespawnTime()-1);
                     if (p.getCharacter().getRespawnTime() <= 0){
@@ -48,17 +49,18 @@ public class JeuModel extends java.util.Observable {
                     }
                 }
             }
+
+            finish = gameFinished();
             setChanged();
             notifyObservers();
-            finish = gameFinished();
+           // finish = true;
             try {
-                sleep(1000);
+                sleep(350);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             // notify view
-            setChanged();
-            notifyObservers();
+
         }
         System.out.println("finished ! gg");
         // TODO retourner resultat partie et notifier vue
@@ -78,13 +80,13 @@ public class JeuModel extends java.util.Observable {
 
     public void initV1(int w, int h, int conso, Coord2D spwan, String pseudo){
         start = true;
-        Player p1 = new HumanPlayer(new PacMan(Direction.TOP,5,true,false,0),pseudo);
+        Player p1 = new HumanPlayer(new PacMan(Direction.BOTTOM,5,true,false,0),pseudo);
         playerList.add(p1);
         Player p2 =new HumanPlayer(new Ghost(Direction.RIGHT,5,true,false,0,10),"ia");
         playerList.add(p2);
 
 
-        Cell[][] tmp = new Cell[5][10];
+        Cell[][] tmp = new Cell[5][5];
         // Ligne 1
         tmp[0][0] = new Wall(null);
         tmp[0][1] = new Wall(null);
@@ -103,7 +105,7 @@ public class JeuModel extends java.util.Observable {
         // Ligne 3
         tmp[2][0] = new Wall(null);
         tmp[2][1] = new Corridor(null,new PacGomme(5));
-        tmp[2][2] = new Wall(null);
+        tmp[2][2] = new Corridor(null,new SuperPacGomme(5));
         tmp[2][3] = new Corridor(null,new PacGomme(5));
         tmp[2][4] = new Corridor(null,new PacGomme(5));
 

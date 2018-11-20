@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import model.Direction;
 import model.JeuModel;
+import model.ThreadRunner;
 import model.coordonates.Coord2D;
 import model.entities.players.Player;
 import view.MainFrame;
@@ -53,12 +54,10 @@ public class PlayController extends Controller {
 
         ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,5,5);
         players = model.getPlayerList();
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        model.mainTurn();
+        ThreadRunner runner = new ThreadRunner(model);
+        Thread handler = new Thread(runner);
+        handler.start();
+       // model.mainTurn();
         //((PlayScene)btnBack.getScene()).test();
     }
 
@@ -76,6 +75,7 @@ public class PlayController extends Controller {
 
 
         System.out.println("key pressed : " + (event.getCode()));
+        System.out.println("Direction : " + (players.get(0).getDirection()));
 
     }
 

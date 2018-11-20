@@ -61,6 +61,8 @@ public class Grid {
         Coord moveCoord = translateDirection(player.getMove(),currentCoord);
         if (moveCorrect(player,currentCoord,moveCoord)){
             playersCoord.replace(player,moveCoord);
+            ((Corridor)grille[((Coord2D)moveCoord).getY()][((Coord2D)moveCoord).getX()]).addCharacter(player.getCharacter());
+            ((Corridor)grille[((Coord2D)currentCoord).getY()][((Coord2D)currentCoord).getX()]).delCharacter(player.getCharacter());
             return true;
         }
         return false;
@@ -80,6 +82,7 @@ public class Grid {
                     // Si le consomable à un effet
                     if (consumable instanceof EffectConsumable){
                      ((EffectConsumable) consumable).applyEffect(p);
+                        System.out.println("JE SUIS INVINCIBLE");
                     }
                     corridor.setConsumable(null);
 
@@ -99,10 +102,10 @@ public class Grid {
     private Coord translateDirection(Direction d,Coord c){
         Coord2D current = (Coord2D) c;
         switch (d){
-            case TOP: return new Coord2D(current.getX(),current.getY()+1);
+            case TOP: return new Coord2D(current.getX(),current.getY()-1);
             case LEFT: return new Coord2D(current.getX()-1,current.getY());
             case RIGHT: return new Coord2D(current.getX()+1,current.getY());
-            case BOTTOM: return new Coord2D(current.getX(),current.getY()-1);
+            case BOTTOM: return new Coord2D(current.getX(),current.getY()+1);
             default: return new Coord2D(current.getX(),current.getY());
         }
     }

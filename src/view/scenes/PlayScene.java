@@ -1,5 +1,6 @@
 package view.scenes;
 
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -102,8 +103,10 @@ public class PlayScene extends Scene {
         model.addObserver(new Observer() {
             @Override
             public void update(java.util.Observable o, Object arg) {
-                updateScreen(model.getCells(),game,score,width,height);
-                System.out.println("up to date");
+
+                Platform.runLater(() ->{ updateScreen(model.getCells(),game,score,width,height);} );
+
+               // System.out.println("up to date");
             }
         });
 
@@ -180,6 +183,7 @@ public class PlayScene extends Scene {
             for (int j = 0; j < width; j++) {
                 String path = "/assets/game/border.jpg";
                 Cell cell = grille[i][j];
+             //   System.out.println(grille[i][j]);
 
                 if (cell instanceof Wall){ // WALL
                     path = cell.getSkin();

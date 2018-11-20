@@ -11,6 +11,6 @@ public class SuperPacGomme extends EffectConsumable {
 
     @Override
     public void applyEffect(Player p) {
-
+        p.getCharacter().setInvulnerability(true);
     }
 }
