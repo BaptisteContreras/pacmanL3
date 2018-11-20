@@ -75,7 +75,7 @@ public class PlayController extends Controller {
 
 
         System.out.println("key pressed : " + (event.getCode()));
-        System.out.println("Direction : " + (players.get(0).getDirection()));
+//        System.out.println("Direction : " + (players.get(0).getDirection()));
 
     }
 

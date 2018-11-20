@@ -14,6 +14,8 @@ public class MenuScene extends Scene {
 
     public MenuScene(Parent root, double width, double height) {
         super(root, width, height);
+        getStylesheets().add("assets/css/menu.css");
+        System.out.println("Stylesheets for the menu have been loaded with success !");
     }
 
     public MenuScene(Parent root, Paint fill) {
@@ -26,6 +28,7 @@ public class MenuScene extends Scene {
 
     public MenuScene(Parent root, double width, double height, boolean depthBuffer) {
         super(root, width, height, depthBuffer);
+
     }
 
     public MenuScene(Parent root, double width, double height, boolean depthBuffer, SceneAntialiasing antiAliasing) {

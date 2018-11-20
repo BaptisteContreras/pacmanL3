@@ -82,7 +82,7 @@ public class PlayScene extends Scene {
 
     public void initScene(Pane game, Pane score, JeuModel model, int width, int height){
         // TODO affichage pour map rectangle
-        assetLoader = new AssetLoader("assets/game/");
+        assetLoader = new AssetLoader("/assets/game");
         assets = assetLoader.loadAsset();
         cases = new Rectangle[height][width];
         setModel(model);
