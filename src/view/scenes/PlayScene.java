@@ -119,23 +119,27 @@ public class PlayScene extends Scene {
     }
 
     public void initInfos(List<HumanPlayer> players){
-        Text time = new Text("0:00");
+        Text time = new Text("Time : ");
         time.setLayoutX(0);
-        time.setLayoutY(50);
+        time.setLayoutY(150);
         time.getStyleClass().add("infos");
-        Text score = new Text("Scores :");
-        score.setLayoutX(0);
-        score.setLayoutY(80);
+        time.setId("time");
+        Text score = new Text("Scores ");
+        score.setLayoutX(25);
+        score.setLayoutY(300);
         score.getStyleClass().add("infos");
-        Text score1 = new Text(players.get(0).getPseudo()+" : 4 ");
+        score.setId("scoretitle");
+        Text score1 = new Text(players.get(0).getPseudo()+" : 0");
         score1.setLayoutX(0);
-        score1.setLayoutY(110);
+        score1.setLayoutY(400);
         score1.getStyleClass().add("infos");
+        score1.getStyleClass().add("score");
         if (players.size() > 1){
             Text score2 = new Text(players.get(1).getPseudo()+" : 0 ");
             score2.setLayoutX(0);
-            score2.setLayoutY(130);
+            score2.setLayoutY(450);
             score2.getStyleClass().add("infos");
+            score2.getStyleClass().add("score");
             rootScore.getChildren().add(score2);
         }
         rootScore.getChildren().add(time);
