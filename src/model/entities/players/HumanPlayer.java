@@ -1,13 +1,16 @@
 package model.entities.players;
 
+import model.Score;
 import model.entities.characters.Character;
 
 public class HumanPlayer extends Player {
     private String pseudo;
 
+
     public HumanPlayer(Character character, String pseudo) {
         super(character);
         this.pseudo = pseudo;
+
     }
 
     public String getPseudo() {
@@ -17,4 +20,8 @@ public class HumanPlayer extends Player {
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
+
+
+
+
 }

@@ -34,6 +34,7 @@ public class Grid {
     public Grid(){
         playersCoord = new HashMap<>();
         wrapper = new Wrapper2D();
+        respawnTime = 60;
     }
 
 
@@ -210,5 +211,8 @@ public class Grid {
 
     public void respawn(Player p, Coord spawnGhost) {
         playersCoord.replace(p,spawnGhost);
+        if (grille[((Coord2D)spawnGhost).getY()][((Coord2D)spawnGhost).getX()] instanceof Corridor){
+            ((Corridor)grille[((Coord2D)spawnGhost).getY()][((Coord2D)spawnGhost).getX()]).addCharacter(p.getCharacter());
+        }
     }
 }

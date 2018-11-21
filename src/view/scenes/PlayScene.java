@@ -46,6 +46,10 @@ public class PlayScene extends Scene {
     private Double startY;
     private Map<String,ImagePattern> assets;
     private AssetLoader assetLoader;
+    private Text timeLabel;
+    private Text titleLabel;
+    private Text score1Label;
+    private Text score2Label;
 
     public PlayScene(Parent root) {
         super(root);
@@ -105,7 +109,7 @@ public class PlayScene extends Scene {
             @Override
             public void update(java.util.Observable o, Object arg) {
 
-                Platform.runLater(() ->{ updateScreen(model.getCells(),game,score,width,height);} );
+                Platform.runLater(() ->{ updateScreen(model.getCells(),game,score,width,height);updateInfos(players,timeLabel,score1Label,score2Label);} );
 
                // System.out.println("up to date");
             }
@@ -119,32 +123,41 @@ public class PlayScene extends Scene {
     }
 
     public void initInfos(List<HumanPlayer> players){
-        Text time = new Text("Time : ");
-        time.setLayoutX(0);
-        time.setLayoutY(150);
-        time.getStyleClass().add("infos");
-        time.setId("time");
-        Text score = new Text("Scores ");
-        score.setLayoutX(25);
-        score.setLayoutY(300);
-        score.getStyleClass().add("infos");
-        score.setId("scoretitle");
-        Text score1 = new Text(players.get(0).getPseudo()+" : 0");
-        score1.setLayoutX(0);
-        score1.setLayoutY(400);
-        score1.getStyleClass().add("infos");
-        score1.getStyleClass().add("score");
+        timeLabel = new Text("Time : ");
+        timeLabel.setLayoutX(0);
+        timeLabel.setLayoutY(150);
+        timeLabel.getStyleClass().add("infos");
+        timeLabel.setId("time");
+        titleLabel = new Text("Scores ");
+        titleLabel.setLayoutX(25);
+        titleLabel.setLayoutY(300);
+        titleLabel.getStyleClass().add("infos");
+        titleLabel.setId("scoretitle");
+        score1Label = new Text(players.get(0).getPseudo()+" : 0");
+        score1Label.setLayoutX(0);
+        score1Label.setLayoutY(400);
+        score1Label.getStyleClass().add("infos");
+        score1Label.getStyleClass().add("score");
         if (players.size() > 1){
-            Text score2 = new Text(players.get(1).getPseudo()+" : 0 ");
-            score2.setLayoutX(0);
-            score2.setLayoutY(450);
-            score2.getStyleClass().add("infos");
-            score2.getStyleClass().add("score");
-            rootScore.getChildren().add(score2);
+            score2Label = new Text(players.get(1).getPseudo()+" : 0 ");
+            score2Label.setLayoutX(0);
+            score2Label.setLayoutY(450);
+            score2Label.getStyleClass().add("infos");
+            score2Label.getStyleClass().add("score");
+            rootScore.getChildren().add(score2Label);
         }
-        rootScore.getChildren().add(time);
-        rootScore.getChildren().add(score);
-        rootScore.getChildren().add(score1);
+        rootScore.getChildren().add(timeLabel);
+        rootScore.getChildren().add(titleLabel);
+        rootScore.getChildren().add(score1Label);
+    }
+
+    public void updateInfos(List<HumanPlayer> players, Text time, Text score1, Text score2){
+        HumanPlayer p1 = players.get(0);
+        score1.setText(p1.getPseudo()+" : "+p1.getScore());
+        if (players.size()>1){
+            HumanPlayer p2 = players.get(1);
+            score2.setText(p2.getPseudo()+" : "+p2.getScore());
+        }
     }
 
     public void setRootGame(Pane rootGame) {
