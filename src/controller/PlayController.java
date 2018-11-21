@@ -12,6 +12,7 @@ import model.Direction;
 import model.JeuModel;
 import model.ThreadRunner;
 import model.coordonates.Coord2D;
+import model.entities.players.HumanPlayer;
 import model.entities.players.Player;
 import view.MainFrame;
 import view.scenes.MenuScene;
@@ -39,7 +40,7 @@ public class PlayController extends Controller {
 
     private JeuModel model;
 
-    private List<Player> players;
+    private List<HumanPlayer> players;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,11 +50,20 @@ public class PlayController extends Controller {
 
     public void startGame(){
         System.out.println("game start");
-        model = new JeuModel();
-        model.initV1(5,5,23,new Coord2D(2,5),"bapt");
+        if (model != null){
+            model.setFinish(true);
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
-        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,5,5);
-        players = model.getPlayerList();
+        model = new JeuModel();
+        model.initV1(5,5,10,new Coord2D(2,5),"bapt");
+
+        players = model.getHumanPlayers();
+        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,5,5,players);
         ThreadRunner runner = new ThreadRunner(model);
         Thread handler = new Thread(runner);
         handler.start();

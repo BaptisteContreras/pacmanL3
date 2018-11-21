@@ -1,0 +1,9 @@
+.infos {
+   -fx-font: 25px "PacFont";
+   -fx-fill: "#FFFFFF";
+}
+
+#time {
+
+    -fx-font-size: 50px;
+}

@@ -39,7 +39,8 @@ public class JeuModel extends java.util.Observable {
         while (!finish){
             for (Player p : playerList){
                 if (p.getCharacter().isAlive()){
-                    grid.eatConsumable(p);
+                    if (grid.eatConsumable(p))
+                        nbConsombaleLeft-=1;
                     grid.applyMove(p);
                 }else{
                     p.getCharacter().setRespawnTime(p.getCharacter().getRespawnTime()-1);
@@ -176,6 +177,16 @@ public class JeuModel extends java.util.Observable {
 
     public void setDirection(Player player, Direction direction){
         player.setDirection(direction);
+    }
+
+    public List<HumanPlayer> getHumanPlayers(){
+        List<HumanPlayer> tmp = new ArrayList<>();
+        for (Player p:playerList){
+            if (p instanceof HumanPlayer){
+                tmp.add((HumanPlayer) p);
+            }
+        }
+        return tmp;
     }
 
 

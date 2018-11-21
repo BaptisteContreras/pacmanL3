@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import model.JeuModel;
 import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
@@ -23,8 +24,10 @@ import model.entities.characters.Character;
 import model.entities.characters.Ennemy;
 import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
+import model.entities.players.HumanPlayer;
 import view.AssetLoader;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 
@@ -50,6 +53,8 @@ public class PlayScene extends Scene {
 
     public PlayScene(Parent root, double width, double height) {
         super(root, width, height);
+        getStylesheets().add("assets/css/game.css");
+        System.out.println("Stylesheets for the game screen have been loaded with success !");
     }
 
     public PlayScene(Parent root, Paint fill) {
@@ -80,7 +85,7 @@ public class PlayScene extends Scene {
         return rootGame;
     }
 
-    public void initScene(Pane game, Pane score, JeuModel model, int width, int height){
+    public void initScene(Pane game, Pane score, JeuModel model, int width, int height, List<HumanPlayer> players){
         // TODO affichage pour map rectangle
         assetLoader = new AssetLoader("/assets/game");
         assets = assetLoader.loadAsset();
@@ -95,6 +100,7 @@ public class PlayScene extends Scene {
             initRectScreen(game,score,width,height);
 
         updateScreen(model.getCells(),game,score,width,height);
+        initInfos(players);
         model.addObserver(new Observer() {
             @Override
             public void update(java.util.Observable o, Object arg) {
@@ -110,6 +116,31 @@ public class PlayScene extends Scene {
       //  rect.setFill(new ImagePattern(img));
         //game.getChildren().add(rect);
 
+    }
+
+    public void initInfos(List<HumanPlayer> players){
+        Text time = new Text("0:00");
+        time.setLayoutX(0);
+        time.setLayoutY(50);
+        time.getStyleClass().add("infos");
+        Text score = new Text("Scores :");
+        score.setLayoutX(0);
+        score.setLayoutY(80);
+        score.getStyleClass().add("infos");
+        Text score1 = new Text(players.get(0).getPseudo()+" : 4 ");
+        score1.setLayoutX(0);
+        score1.setLayoutY(110);
+        score1.getStyleClass().add("infos");
+        if (players.size() > 1){
+            Text score2 = new Text(players.get(1).getPseudo()+" : 0 ");
+            score2.setLayoutX(0);
+            score2.setLayoutY(130);
+            score2.getStyleClass().add("infos");
+            rootScore.getChildren().add(score2);
+        }
+        rootScore.getChildren().add(time);
+        rootScore.getChildren().add(score);
+        rootScore.getChildren().add(score1);
     }
 
     public void setRootGame(Pane rootGame) {
