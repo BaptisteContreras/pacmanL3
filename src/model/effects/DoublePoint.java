@@ -2,9 +2,8 @@ package model.effects;
 
 import model.entities.players.Player;
 
-public class Invulnerability extends PlayerEffect {
-
-    public Invulnerability(int duree) {
+public class DoublePoint extends PlayerEffect {
+    public DoublePoint(int duree) {
         super(duree);
     }
 

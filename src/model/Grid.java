@@ -34,7 +34,7 @@ public class Grid {
     public Grid(){
         playersCoord = new HashMap<>();
         wrapper = new Wrapper2D();
-        respawnTime = 60;
+        respawnTime = 10;
     }
 
 
@@ -84,7 +84,6 @@ public class Grid {
                     // Si le consomable à un effet
                     if (consumable instanceof EffectConsumable){
                      ((EffectConsumable) consumable).applyEffect(p);
-                        System.out.println("JE SUIS INVINCIBLE");
                     }
                     corridor.setConsumable(null);
 
@@ -214,5 +213,17 @@ public class Grid {
         if (grille[((Coord2D)spawnGhost).getY()][((Coord2D)spawnGhost).getX()] instanceof Corridor){
             ((Corridor)grille[((Coord2D)spawnGhost).getY()][((Coord2D)spawnGhost).getX()]).addCharacter(p.getCharacter());
         }
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setRespawnTime(int respawnTime) {
+        this.respawnTime = respawnTime;
     }
 }

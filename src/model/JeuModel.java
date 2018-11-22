@@ -2,6 +2,8 @@ package model;
 
 import model.coordonates.Coord;
 import model.coordonates.Coord2D;
+import model.effects.DoublePoint;
+import model.effects.Invulnerability;
 import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
 import model.entities.cells.Wall;
@@ -42,6 +44,7 @@ public class JeuModel extends java.util.Observable {
                     if (grid.eatConsumable(p))
                         nbConsombaleLeft-=1;
                     grid.applyMove(p);
+                    p.decreaseEffect();
                 }else{
                     p.getCharacter().setRespawnTime(p.getCharacter().getRespawnTime()-1);
                     if (p.getCharacter().getRespawnTime() <= 0){
@@ -52,6 +55,7 @@ public class JeuModel extends java.util.Observable {
             }
 
             finish = gameFinished();
+
             setChanged();
             notifyObservers();
            // finish = true;
@@ -107,7 +111,7 @@ public class JeuModel extends java.util.Observable {
         // Ligne 3
         tmp[2][0] = new Wall(null);
         tmp[2][1] = new Corridor(null,new PacGomme(5));
-        tmp[2][2] = new Corridor(null,new SuperPacGomme(5));
+        tmp[2][2] = new Corridor(null,new SuperPacGomme(5,new Invulnerability(20)));
         tmp[2][3] = new Corridor(null,new PacGomme(5));
         tmp[2][4] = new Corridor(null,new PacGomme(5));
 

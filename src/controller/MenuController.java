@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import view.MainFrame;
+import view.scenes.EditorScene;
 import view.scenes.MenuScene;
 import view.scenes.PlayScene;
 
@@ -106,5 +107,23 @@ public class MenuController extends Controller {
         });
         timeline.play();
         */
+    }
+
+    public void editor(){
+        System.out.println("editor");
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/fxml/editor.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        EditorScene ps = new EditorScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());
+        ps.getRoot().setStyle("-fx-background-color: #" + "AAAAAA");
+        ((EditorController)loader.getController()).prepareEditor(); // methode a faire
+
+        MainFrame.currentStage.setScene(ps);
+
     }
 }

@@ -7,7 +7,7 @@
 <AnchorPane fx:id="root" fx:controller="controller.MenuController"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button onAction="#play" styleClass="btn-menu" layoutX="259.0" layoutY="81.0" mnemonicParsing="false" text="Jouer" />
-      <Button layoutX="227.0" styleClass="btn-menu" layoutY="154.0" mnemonicParsing="false" text="Editeur de niveau" />
+      <Button onAction="#editor" layoutX="227.0" styleClass="btn-menu" layoutY="154.0" mnemonicParsing="false" text="Editeur de niveau" />
       <Button fx:id="quit" styleClass="btn-menu" layoutX="255.0" layoutY="234.0" mnemonicParsing="false" text="Quitter" />
    </children>
 </AnchorPane>

@@ -78,7 +78,7 @@ public class PlayController extends Controller {
         }
 
         model = new JeuModel();
-        model.initV1(5,5,10,new Coord2D(2,5),pseudo);
+        model.initV1(5,5,10,new Coord2D(4,3),pseudo);
 
         players = model.getHumanPlayers();
         ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,5,5,players);

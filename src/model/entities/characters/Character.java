@@ -1,13 +1,13 @@
 package model.entities.characters;
 
 import model.Direction;
+import model.effects.DoublePoint;
 import model.effects.Effect;
+import model.effects.Invulnerability;
 import model.entities.Entity;
+import model.entities.players.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Character extends Entity {
 
@@ -42,6 +42,34 @@ public abstract class Character extends Entity {
         return direction;
     }
 
+    public void dicreaseEffectDuration(){
+        // TODO supprimer les effets périmés.
+        Set keys = effets.keySet();
+        Iterator it = keys.iterator();
+        while (it.hasNext()){
+            Effect effect = (Effect) it.next();
+            effect.decremente();
+
+        }
+    }
+
+    public boolean hasEffect(Class p){
+        Set keys = effets.keySet();
+        Iterator it = keys.iterator();
+        while (it.hasNext()){
+            Effect effect = (Effect) it.next();
+            if (effect.getClass().getName().equals(p.getName())){
+                if (effect.isActive())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasDoublePoint(){
+        return hasEffect(DoublePoint.class);
+    }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
@@ -63,7 +91,7 @@ public abstract class Character extends Entity {
     }
 
     public boolean isInvulnerability() {
-        return invulnerability;
+        return hasEffect(Invulnerability.class);
     }
 
     public void setInvulnerability(boolean invulnerability) {

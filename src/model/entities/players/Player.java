@@ -32,11 +32,21 @@ public abstract class Player {
 
     public Direction getMove(){return getDirection();}
 
+    public boolean isAffectedBy(Class c){
+        return character.hasEffect(c);
+    }
+
     public void upScore(int val){
+        if (character.hasDoublePoint())
+            val *= 2;
         score.up(val);
     }
 
     public int getScore(){
         return score.getScore();
+    }
+
+    public void decreaseEffect(){
+        character.dicreaseEffectDuration();
     }
 }

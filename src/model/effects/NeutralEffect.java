@@ -2,14 +2,13 @@ package model.effects;
 
 import model.entities.players.Player;
 
-public class Invulnerability extends PlayerEffect {
-
-    public Invulnerability(int duree) {
+public class NeutralEffect extends Effect {
+    public NeutralEffect(int duree) {
         super(duree);
     }
 
     @Override
     public void apply(Player p) {
-        p.getCharacter().addEffect(this);
+        // DO NOTHING
     }
 }

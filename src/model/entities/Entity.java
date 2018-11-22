@@ -1,6 +1,8 @@
 package model.entities;
 
-public abstract class Entity {
+import java.io.Serializable;
+
+public abstract class Entity implements Serializable {
 
     protected String skin;
 
