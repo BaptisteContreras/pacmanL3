@@ -1,23 +1,16 @@
 package controller;
 
 import javafx.animation.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import view.MainFrame;
-import view.scenes.EditorScene;
-import view.scenes.MenuScene;
-import view.scenes.PlayScene;
+import view.scenes.editor.EditorScene;
+import view.scenes.game.PlayScene;
 
 import java.io.IOException;
 import java.net.URL;
@@ -122,6 +115,7 @@ public class MenuController extends Controller {
         EditorScene ps = new EditorScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());
         ps.getRoot().setStyle("-fx-background-color: #" + "AAAAAA");
         ((EditorController)loader.getController()).prepareEditor(); // methode a faire
+        ((EditorController)loader.getController()).setEditorScene(ps); // methode a faire
 
         MainFrame.currentStage.setScene(ps);
 

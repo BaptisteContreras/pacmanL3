@@ -11,14 +11,12 @@ import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
 import model.entities.consumables.Consumable;
 import model.entities.consumables.EffectConsumable;
+import model.entities.consumables.GoodConsumable;
 import model.entities.players.Player;
 import model.wrapper.Wrapper;
 import model.wrapper.Wrapper2D;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Grid {
 
@@ -87,8 +85,11 @@ public class Grid {
                     }
                     corridor.setConsumable(null);
 
+                    if (consumable instanceof GoodConsumable){
 
-                    return true;
+                        return true;
+                    }
+                    return false;
                 }else {
                     return false;
                 }
@@ -176,7 +177,9 @@ public class Grid {
                             playersCoord.replace(tmpPlayer,new Coord2D(-1,-1));
                         }else{
                             System.out.println(tmpCoord + " : " + tmpPlayer.getCharacter());
-                            return true;
+                            int left  = pacman.looseOneLife();
+                            System.out.println(left);
+                            return left <= 0;
                         }
                     }
                 }
@@ -217,6 +220,19 @@ public class Grid {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    @Override
+    public String toString() {
+        return "Grid{" +
+                "grille=" + (grille == null ? null : Arrays.asList(grille)) +
+                ", playersCoord=" + playersCoord +
+                ", pacmanCoord=" + pacmanCoord +
+                ", width=" + width +
+                ", height=" + height +
+                ", respawnTime=" + respawnTime +
+                ", wrapper=" + wrapper +
+                '}';
     }
 
     public void setHeight(int height) {

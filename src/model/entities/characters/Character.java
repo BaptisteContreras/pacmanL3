@@ -5,7 +5,6 @@ import model.effects.DoublePoint;
 import model.effects.Effect;
 import model.effects.Invulnerability;
 import model.entities.Entity;
-import model.entities.players.Player;
 
 import java.util.*;
 
@@ -17,15 +16,31 @@ public abstract class Character extends Entity {
     protected boolean invulnerability;
     protected int respawnTime;
     protected Map<Effect,Effect> effets;
+    protected int life;
 
     public Character(String skin, Direction direction, int speed, boolean alive, boolean invulnerability, int respawnTime) {
         super(skin);
+        life = 8;
         this.direction = direction;
         this.speed = speed;
         this.alive = alive;
         this.invulnerability = invulnerability;
         this.respawnTime = respawnTime;
         effets = new HashMap<>();
+    }
+    public Character(String skin, Direction direction, int speed, boolean alive, boolean invulnerability, int respawnTime,int lives) {
+        super(skin);
+        life = 2;
+        this.direction = direction;
+        this.speed = speed;
+        this.alive = alive;
+        this.invulnerability = invulnerability;
+        this.respawnTime = respawnTime;
+        effets = new HashMap<>();
+    }
+
+    public int getLife() {
+        return life;
     }
 
     public void clearEffect(){
@@ -66,6 +81,25 @@ public abstract class Character extends Entity {
         return false;
     }
 
+    public Map<Effect, Effect> getEffets() {
+        return effets;
+    }
+
+    public void addLife(int nb){
+        life+=nb;
+    }
+
+    public void upLife(){
+        addLife(1);
+    }
+
+    public int looseXLife(int nb){
+        life -= nb;
+        return life;
+    }
+
+
+
     public boolean hasDoublePoint(){
         return hasEffect(DoublePoint.class);
     }
@@ -84,6 +118,11 @@ public abstract class Character extends Entity {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public int looseLife(){
+        life -= 1;
+        return  life;
     }
 
     public void setAlive(boolean alive) {

@@ -2,6 +2,7 @@ package model.entities.players;
 
 import model.Direction;
 import model.Score;
+import model.effects.Effect;
 import model.entities.characters.Character;
 
 public abstract class Player {
@@ -14,8 +15,26 @@ public abstract class Player {
         score = new Score();
     }
 
+    public java.util.Map<Effect, Effect> getEffects(){
+        return character.getEffets();
+    }
+
     public Character getCharacter() {
         return character;
+    }
+
+    public int looseLife(int nb){
+        return character.looseXLife(nb);
+    }
+    public int looseOneLife(){
+        return looseLife(1);
+    }
+
+    public void upLifeBy(int nb){
+        character.addLife(1);
+    }
+    public void upLife(){
+        upLifeBy(1);
     }
 
     public void setCharacter(Character character) {

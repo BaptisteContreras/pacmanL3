@@ -2,7 +2,7 @@ package model.effects;
 
 import model.entities.players.Player;
 
-public abstract class Effect {
+public abstract class Effect implements Cloneable{
 
     protected int duree;
     protected int time;
@@ -38,5 +38,10 @@ public abstract class Effect {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

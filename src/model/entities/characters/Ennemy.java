@@ -10,6 +10,10 @@ public abstract class Ennemy extends Character {
         super(skin, direction, speed, alive, invulnerability, respawnTime);
         this.nbPoints = nbPoints;
     }
+    public Ennemy(String skin, Direction direction, int speed, boolean alive, boolean invulnerability, int respawnTime, int nbPoints,int lives) {
+        super(skin, direction, speed, alive, invulnerability, respawnTime,lives);
+        this.nbPoints = nbPoints;
+    }
 
     public int getNbPoints() {
         return nbPoints;

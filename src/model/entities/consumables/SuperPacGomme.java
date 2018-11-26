@@ -3,7 +3,7 @@ package model.entities.consumables;
 import model.effects.Effect;
 import model.entities.players.Player;
 
-public class SuperPacGomme extends EffectConsumable {
+public class SuperPacGomme extends EffectConsumable implements GoodConsumable {
 
 
     public SuperPacGomme(int nbPoints, Effect e) {
@@ -12,6 +12,7 @@ public class SuperPacGomme extends EffectConsumable {
 
     @Override
     public void applyEffect(Player p) {
-        p.getCharacter().addEffect(effect);
+        effect.apply(p);
+        //p.getCharacter().addEffect(effect);
     }
 }

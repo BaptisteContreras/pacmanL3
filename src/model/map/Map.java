@@ -41,6 +41,13 @@ public abstract class Map implements Serializable {
 
 
     }
+    public void addEffect(String name, Effect effect){customMapEffect.put(name,effect);}
+    public Effect getEffect(String name){return customMapEffect.get(name);}
+
+    public java.util.Map<String, Effect> getCustomMapEffect() {
+        return customMapEffect;
+    }
+
     public void setRespawnTime(int time){
         gridBuilder.setRespawnTime(time);
     }
@@ -59,6 +66,12 @@ public abstract class Map implements Serializable {
 
     public void resizeMap(int width,int height){
         gridBuilder.rebuild(width,height);
+        this.width = width;
+        this.height = height;
+    }
+
+    public Grid getGrid(){
+        return gridBuilder.getGrid();
     }
 
     public void replaceGrid(Cell[][] newGrid){
@@ -105,5 +118,18 @@ public abstract class Map implements Serializable {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    @Override
+    public String toString() {
+        return "Map{" +
+                "nbConso=" + nbConso +
+                ", pacmanSpawn=" + pacmanSpawn +
+                ", ghostSpawn=" + ghostSpawn +
+                ", customMapEffect=" + customMapEffect +
+                ", width=" + width +
+                ", height=" + height +
+                ", gridBuilder=" + gridBuilder +
+                '}';
     }
 }

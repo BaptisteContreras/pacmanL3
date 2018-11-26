@@ -1,4 +1,4 @@
-package view.scenes;
+package view.scenes.game;
 
 import javafx.application.Platform;
 import javafx.beans.Observable;
@@ -26,26 +26,21 @@ import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
 import model.entities.players.HumanPlayer;
 import view.AssetLoader;
+import view.scenes.GameScene;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
 
-public class PlayScene extends Scene {
+public class PlayScene extends GameScene {
 
     private JeuModel model;
     private Pane rootGame;
     private Pane rootScore;
-    private Double ScreenRatio;
-    private Double tileWidth;
-    private Double tileHeight;
-    private Double adaptedWidth;
-    private Double adaptedHeight;
-    private Rectangle[][] cases;
-    private Double startX;
-    private Double startY;
-    private Map<String,ImagePattern> assets;
-    private AssetLoader assetLoader;
+
+
+
+
     private Text timeLabel;
     private Text titleLabel;
     private Text score1Label;
@@ -172,54 +167,7 @@ public class PlayScene extends Scene {
         this.rootScore = rootScore;
     }
 
-    private void initSquareScreen(Pane game, Pane score, int width, int height){
 
-        ScreenRatio = getWidth() >= getHeight() ? getWidth()/getHeight() : getHeight()/getWidth();
-        adaptedWidth = getWidth() >= getHeight() ? getWidth()/ScreenRatio : getWidth();
-        adaptedHeight = getHeight() >= getWidth() ? getHeight()/ScreenRatio : getHeight();
-        tileWidth = adaptedWidth/width;
-        tileHeight = adaptedHeight/height;
-        startX = (getWidth()-(adaptedWidth))/2; // pour centrer
-
-        Image img = new Image("/assets/game/border.jpg");
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                Rectangle tmpRect = new Rectangle(tileWidth,tileHeight);
-                tmpRect.setLayoutX(startX+(tileWidth*j));
-                tmpRect.setLayoutY((tileHeight*i));
-                tmpRect.setFill(new ImagePattern(img));
-                cases[i][j] = tmpRect;
-                game.getChildren().add(tmpRect);
-            }
-        }
-
-    }
-
-    private void initRectScreen(Pane game, Pane score, int width, int height){
-        System.out.println("rect");
-        int caseRatio = width >= height ?  width/height : height/width;
-        ScreenRatio = 1.;
-        adaptedWidth = getWidth()-((getWidth()*10)/100);
-        adaptedHeight = getHeight();
-        tileWidth = width >= height ? (adaptedWidth/width)/2 : (adaptedWidth/width)/2;
-        tileHeight = height >= width ? adaptedHeight/height : (adaptedHeight/height)/caseRatio;
-        startX = (getWidth()-(adaptedWidth)); // pour centrer
-        startY = (getHeight()-(adaptedHeight)); // pour centrer
-
-        Image img = new Image("/assets/game/border.jpg");
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                Rectangle tmpRect = new Rectangle(tileWidth,tileHeight);
-                tmpRect.setLayoutX(startX+(tileWidth*j));
-                tmpRect.setLayoutY(startY+(tileHeight*i));
-                tmpRect.setFill(new ImagePattern(img));
-                cases[i][j] = tmpRect;
-                game.getChildren().add(tmpRect);
-            }
-        }
-    }
 
     public void updateScreen(Cell[][] grille,Pane game, Pane score, int width, int height){
         for (int i = 0; i < height; i++) {

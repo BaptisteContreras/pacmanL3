@@ -1,9 +1,7 @@
 package controller;
 
+import controller.Controller;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
@@ -16,12 +14,8 @@ import model.JeuModel;
 import model.ThreadRunner;
 import model.coordonates.Coord2D;
 import model.entities.players.HumanPlayer;
-import model.entities.players.Player;
-import view.MainFrame;
-import view.scenes.MenuScene;
-import view.scenes.PlayScene;
+import view.scenes.game.PlayScene;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;

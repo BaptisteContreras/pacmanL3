@@ -2,8 +2,7 @@ package model;
 
 import model.coordonates.Coord;
 import model.coordonates.Coord2D;
-import model.effects.DoublePoint;
-import model.effects.Invulnerability;
+import model.effects.*;
 import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
 import model.entities.cells.Wall;
@@ -15,8 +14,7 @@ import model.entities.players.AIPlayer;
 import model.entities.players.HumanPlayer;
 import model.entities.players.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Thread.sleep;
 
@@ -45,6 +43,7 @@ public class JeuModel extends java.util.Observable {
                         nbConsombaleLeft-=1;
                     grid.applyMove(p);
                     p.decreaseEffect();
+                  //  applyOtherEffect(p);
                 }else{
                     p.getCharacter().setRespawnTime(p.getCharacter().getRespawnTime()-1);
                     if (p.getCharacter().getRespawnTime() <= 0){
@@ -53,6 +52,7 @@ public class JeuModel extends java.util.Observable {
                     }
                 }
             }
+            
 
             finish = gameFinished();
 
@@ -73,6 +73,26 @@ public class JeuModel extends java.util.Observable {
         setChanged();
         notifyObservers();
 
+    }
+
+    private void applyOtherEffect(Player p) {
+        Set keys = p.getEffects().keySet();
+        Iterator it = keys.iterator();
+        while (it.hasNext()){
+            PlayerEffect tmpEffect = (PlayerEffect) it.next();
+
+            System.out.println(tmpEffect);
+        }
+        System.out.println("----------------");
+
+    }
+
+    public Player getPacMan(){
+        for (Player p:playerList){
+            if (p.getCharacter() instanceof PacMan)
+                return p;
+        }
+        return null;
     }
 
     public void init(String map){
@@ -109,9 +129,14 @@ public class JeuModel extends java.util.Observable {
         ((Corridor)tmp[1][3]).addCharacter(playerList.get(0).getCharacter());
 
         // Ligne 3
+        List<PlayerEffect> customs = new ArrayList<>();
+        customs.add(new DoublePoint(200));
+        customs.add(new Invulnerability(200));
+       // customs.add(new UpLifeEffect(200));
+        CustomPlayerEffect custom = new CustomPlayerEffect(customs,100);
         tmp[2][0] = new Wall(null);
         tmp[2][1] = new Corridor(null,new PacGomme(5));
-        tmp[2][2] = new Corridor(null,new SuperPacGomme(5,new Invulnerability(20)));
+        tmp[2][2] = new Corridor(null,new SuperPacGomme(5,custom));
         tmp[2][3] = new Corridor(null,new PacGomme(5));
         tmp[2][4] = new Corridor(null,new PacGomme(5));
 
@@ -142,7 +167,7 @@ public class JeuModel extends java.util.Observable {
     }
 
     public boolean gameFinished(){
-        if (nbConsombaleLeft == 0 || grid.hasCollision() )
+        if (nbConsombaleLeft == 0 || grid.hasCollision() || (getPacMan() !=null && getPacMan().getCharacter().getLife() <= 0) )
             return true;
         return false;
     }
