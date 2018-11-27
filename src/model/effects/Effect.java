@@ -2,7 +2,9 @@ package model.effects;
 
 import model.entities.players.Player;
 
-public abstract class Effect implements Cloneable{
+import java.io.Serializable;
+
+public abstract class Effect implements Cloneable, Serializable {
 
     protected int duree;
     protected int time;
@@ -10,6 +12,10 @@ public abstract class Effect implements Cloneable{
     public Effect(int duree) {
         this.duree = duree;
         time = duree;
+    }
+
+    public boolean bad(){
+        return this instanceof BadEffect;
     }
 
     public abstract void apply(Player p);

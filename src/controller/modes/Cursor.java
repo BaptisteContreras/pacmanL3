@@ -5,6 +5,8 @@ public enum Cursor {
     WALL,
     CORRIDOR,
     PACGUM,
-    SUPER
+    SUPER,
+    GHOST,
+    SPAWN
 
 }

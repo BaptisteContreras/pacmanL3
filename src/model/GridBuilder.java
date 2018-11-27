@@ -4,8 +4,12 @@ import model.coordonates.Coord;
 import model.effects.Effect;
 import model.entities.cells.Cell;
 import model.entities.consumables.Consumable;
+import model.entities.players.Player;
 
-public abstract class GridBuilder {
+import java.io.Serializable;
+import java.util.Map;
+
+public abstract class GridBuilder implements Serializable {
 
     protected Grid grid;
 
@@ -24,6 +28,7 @@ public abstract class GridBuilder {
     public abstract void addConsumable(Coord coord,Consumable cons);
     public abstract void replace(Coord coord, Cell cell);
     public abstract void reWall(Coord coord);
+    public abstract void addEnnemy(Coord coord, Player ennemy);
 
     public abstract void rebuild(int width, int height);
 
@@ -50,4 +55,26 @@ public abstract class GridBuilder {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public Coord getPlayerCoord(Player p) {
+        return grid.getPlayersCoord().get(p);
+    }
+
+    public  abstract  boolean checkIfEmpty(Coord coord);
+
+    public Map<Player,Coord> getAllCoord() {
+        return grid.getPlayersCoord();
+    }
+
+    public abstract Player getPlayerWithCoord(Coord coord);
+
+    public void deletePlayer(Player p) {
+        grid.getPlayersCoord().remove(p);
+    }
+
+    public void clearPlayers() {
+        grid.getPlayersCoord().clear();
+    }
+
+    public abstract void initPosPlayers(Player p1, Coord p1Spawn);
 }

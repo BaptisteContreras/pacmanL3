@@ -16,9 +16,10 @@ import model.entities.players.Player;
 import model.wrapper.Wrapper;
 import model.wrapper.Wrapper2D;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Grid {
+public class Grid implements Serializable {
 
     private Cell[][] grille;
     private Map<Player,Coord> playersCoord;
@@ -85,7 +86,7 @@ public class Grid {
                     }
                     corridor.setConsumable(null);
 
-                    if (consumable instanceof GoodConsumable){
+                    if (!consumable.isNegativeEffect()){
 
                         return true;
                     }
@@ -237,6 +238,10 @@ public class Grid {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Map<Player, Coord> getPlayersCoord() {
+        return playersCoord;
     }
 
     public void setRespawnTime(int respawnTime) {

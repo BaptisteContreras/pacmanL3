@@ -24,7 +24,7 @@ public class AssetLoader {
         File[] files = folder.listFiles();
         for (int i = 0; i < files.length; i++) {
             if (files[i].isFile()) {
-                System.out.println("File " + files[i].getName());
+           //     System.out.println("File " + files[i].getName());
                 assets.put(base+"/"+files[i].getName(),new ImagePattern(new Image(base+"/"+files[i].getName())));
             }
         }

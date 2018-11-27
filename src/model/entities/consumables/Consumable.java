@@ -11,7 +11,7 @@ public abstract class Consumable extends Entity {
         this.nbPoints = nbPoints;
     }
 
-
+    public abstract boolean isNegativeEffect();
     public int getNbPoints() {
         return nbPoints;
     }

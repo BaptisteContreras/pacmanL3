@@ -13,6 +13,8 @@ import model.entities.consumables.SuperPacGomme;
 import model.entities.players.AIPlayer;
 import model.entities.players.HumanPlayer;
 import model.entities.players.Player;
+import model.map.Map;
+import model.map.MapBuilder;
 
 import java.util.*;
 
@@ -39,6 +41,7 @@ public class JeuModel extends java.util.Observable {
         while (!finish){
             for (Player p : playerList){
                 if (p.getCharacter().isAlive()){
+                    System.out.println(p+" : "+p.getCharacter().getEffets());
                     if (grid.eatConsumable(p))
                         nbConsombaleLeft-=1;
                     grid.applyMove(p);
@@ -47,11 +50,12 @@ public class JeuModel extends java.util.Observable {
                 }else{
                     p.getCharacter().setRespawnTime(p.getCharacter().getRespawnTime()-1);
                     if (p.getCharacter().getRespawnTime() <= 0){
-                        p.getCharacter().isAlive();
+                        p.getCharacter().setAlive(true);
                         grid.respawn(p,spawnGhost);
                     }
                 }
             }
+            System.out.println("_____________");
             
 
             finish = gameFinished();
@@ -95,13 +99,23 @@ public class JeuModel extends java.util.Observable {
         return null;
     }
 
-    public void init(String map){
 
-
-    }
 
     public Cell[][] getCells(){
         return grid.getGrille();
+    }
+
+    public void init(MapBuilder builder, String pseudo, String mapName, int conso){
+        start = true;
+        Player p1 = new HumanPlayer(new PacMan(Direction.BOTTOM,5,true,false,0),pseudo);
+        builder.loadMap(mapName);
+        Map map = builder.getMap();
+        nbConsombaleLeft = conso;
+        map.initGridToPlay(p1);
+        spawnGhost = map.realGhostSpawn();
+        grid = map.getGrid();
+        playerList = map.getPlayers();
+        playerList.add(p1);
     }
 
     public void initV1(int w, int h, int conso, Coord2D spwan, String pseudo){

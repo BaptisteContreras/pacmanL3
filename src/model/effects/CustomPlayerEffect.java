@@ -15,12 +15,25 @@ public class CustomPlayerEffect extends PlayerEffect {
     }
 
     @Override
+    public boolean bad() {
+        for (Effect e:toapply){
+            if (e.bad())
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public void apply(Player p) {
         for (PlayerEffect eff:toapply) {
             eff.apply(p);
 
         }
 
+    }
+
+    public List<PlayerEffect> getToapply() {
+        return toapply;
     }
 
     @Override

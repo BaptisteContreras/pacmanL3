@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
+import model.coordonates.Coord;
+import model.coordonates.Coord2D;
 import model.effects.Effect;
 import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
@@ -20,10 +22,12 @@ import model.entities.characters.Character;
 import model.entities.characters.Ennemy;
 import model.entities.characters.PacMan;
 import model.entities.consumables.NoEffectConsumable;
+import model.entities.players.Player;
 import view.AssetLoader;
 import view.components.IdRectangle;
 import view.scenes.GameScene;
 
+import java.util.List;
 import java.util.Map;
 
 public class EditorScene extends GameScene {
@@ -77,6 +81,15 @@ public class EditorScene extends GameScene {
             case PACGUM:
                 img = new Image("/assets/game/pacgum2.jpg");
                 setCursor(new ImageCursor(img,img.getWidth()/2,img.getHeight()/2));break;
+            case SUPER:
+                img = new Image("/assets/game/superpacgum.jpg");
+                setCursor(new ImageCursor(img,img.getWidth()/2,img.getHeight()/2));break;
+            case GHOST:
+                img = new Image("/assets/game/ghost.jpg");
+                setCursor(new ImageCursor(img,img.getWidth()/2,img.getHeight()/2));break;
+            case SPAWN:
+                img = new Image("/assets/game/home.jpg");
+                setCursor(new ImageCursor(img,img.getWidth()/2,img.getHeight()/2));break;
             default:
                 setCursor(new ImageCursor());
                 System.out.println("default cursor set");break;
@@ -116,10 +129,11 @@ public class EditorScene extends GameScene {
                     path = corri.getSkin();
                     if (corri.getConsumable() != null){
                         if (corri.getConsumable() instanceof NoEffectConsumable){
-                               path = "/assets/game/pacgum2.jpg";
+                               path = corri.getConsumable().getSkin();
                         }else{
 
                             path = corri.getConsumable().getSkin();
+                            //path = "/assets/game/superpacgum.jpg";
                         }
                     }
                     boolean ghosted = false;
@@ -143,6 +157,7 @@ public class EditorScene extends GameScene {
 
     public void initListView(Map<String,Effect> effects, ListView selectEffects) {
         this.selectEffects = selectEffects;
+        selectEffects.getItems().clear();
         selectEffects.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for (Map.Entry<String, Effect> entry : effects.entrySet()) {
            this.selectEffects.getItems().add(entry.getKey());
@@ -155,5 +170,22 @@ public class EditorScene extends GameScene {
         for (Map.Entry<String, Effect> entry : effects.entrySet()) {
             this.selectEffects.getItems().add(entry.getKey());
         }
+    }
+
+    public void updateSpawn(Map<Player, Coord> ghost, List<Coord> spawn) {
+
+        for (Coord c:spawn){
+            Coord2D coord2D = (Coord2D) c;
+            String path = "/assets/game/home.jpg";
+            cases[coord2D.getY()][coord2D.getX()].setFill(assets.get(path));
+        }
+
+        for (Map.Entry<Player,Coord> entry:ghost.entrySet()){
+            Coord2D coord = (Coord2D) entry.getValue();
+            String path = entry.getKey().getCharacter().getSkin();
+            cases[coord.getY()][coord.getX()].setFill(assets.get(path));
+        }
+
+
     }
 }

@@ -5,7 +5,9 @@ import model.Score;
 import model.effects.Effect;
 import model.entities.characters.Character;
 
-public abstract class Player {
+import java.io.Serializable;
+
+public abstract class Player implements Serializable {
 
     protected Character character;
     protected Score score;

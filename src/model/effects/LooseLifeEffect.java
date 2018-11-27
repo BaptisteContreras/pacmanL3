@@ -2,7 +2,7 @@ package model.effects;
 
 import model.entities.players.Player;
 
-public class LooseLifeEffect extends PlayerEffect {
+public class LooseLifeEffect extends PlayerEffect implements BadEffect {
     public LooseLifeEffect(int duree) {
         super(duree);
     }

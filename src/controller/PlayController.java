@@ -14,6 +14,7 @@ import model.JeuModel;
 import model.ThreadRunner;
 import model.coordonates.Coord2D;
 import model.entities.players.HumanPlayer;
+import model.map.Map2dBuilder;
 import view.scenes.game.PlayScene;
 
 import java.net.URL;
@@ -72,10 +73,11 @@ public class PlayController extends Controller {
         }
 
         model = new JeuModel();
-        model.initV1(5,5,10,new Coord2D(4,3),pseudo);
+       // model.initV1(5,5,10,new Coord2D(4,3),pseudo);
+        model.init(new Map2dBuilder(),pseudo,"default.map",200);
 
         players = model.getHumanPlayers();
-        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,5,5,players);
+        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,20,20,players);
         ThreadRunner runner = new ThreadRunner(model);
         Thread handler = new Thread(runner);
         handler.start();
@@ -98,6 +100,10 @@ public class PlayController extends Controller {
 
         System.out.println("key pressed : " + (event.getCode()));
 //        System.out.println("Direction : " + (players.get(0).getDirection()));
+
+    }
+
+    public void changeMap(){
 
     }
 

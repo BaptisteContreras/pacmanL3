@@ -1,5 +1,7 @@
 package model.coordonates;
 
-public class Coord {
+import java.io.Serializable;
+
+public class Coord implements Serializable {
 
 }

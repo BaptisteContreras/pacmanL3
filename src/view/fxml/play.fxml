@@ -4,11 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#keyHandler" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayController">
    <children>
       <Button fx:id="btnBack" layoutY="1.0" mnemonicParsing="false" styleClass="btnuii" text="Menu" />
-      <Button  layoutX="47" layoutY="1.0" mnemonicParsing="false" styleClass="btnuii" onAction="#startGame" text="Commencer" />
+      <Button layoutX="47" layoutY="1.0" mnemonicParsing="false" onAction="#startGame" styleClass="btnuii" text="Commencer" />
       <Pane fx:id="gameroot" layoutX="127.0" layoutY="-3.0" prefHeight="407.0" prefWidth="473.0" />
       <Pane fx:id="scoreroot" layoutY="26.0" prefHeight="375.0" prefWidth="127.0" />
+      <Button layoutX="-2.0" onAction="#changeMap" layoutY="415.0" mnemonicParsing="false" text="Choisir Map" />
    </children>
 </AnchorPane>

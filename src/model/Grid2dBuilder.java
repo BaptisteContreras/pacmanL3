@@ -8,6 +8,9 @@ import model.entities.cells.Corridor;
 import model.entities.cells.Wall;
 import model.entities.consumables.Consumable;
 import model.entities.consumables.EffectConsumable;
+import model.entities.players.Player;
+
+import java.util.Map;
 
 public class Grid2dBuilder extends GridBuilder {
 
@@ -64,6 +67,14 @@ public class Grid2dBuilder extends GridBuilder {
         replace(coord,new Wall(null));
     }
 
+    @Override
+    public void addEnnemy(Coord coord, Player ennemy) {
+        Coord2D c2d = (Coord2D) coord;
+        if (grid.getGrille()[c2d.getY()][c2d.getX()] instanceof Corridor){
+            if (checkIfEmpty(coord))
+                grid.setPlayerCoord(ennemy,coord);
+        }
+    }
 
 
     @Override
@@ -75,5 +86,42 @@ public class Grid2dBuilder extends GridBuilder {
             }
         }
         grid = new Grid(tmp);
+    }
+
+    @Override
+    public boolean checkIfEmpty(Coord coord) {
+        Coord2D c2d = (Coord2D) coord;
+        if (!(grid.getGrille()[c2d.getY()][c2d.getX()] instanceof Corridor))
+            return false;
+        for (Map.Entry<Player,Coord> entry:grid.getPlayersCoord().entrySet()){
+            if (((Coord2D)entry.getValue()).equals(c2d)){
+                System.out.println("Spawn already set");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public Player getPlayerWithCoord(Coord coord) {
+       for (Map.Entry<Player,Coord> entry: grid.getPlayersCoord().entrySet()){
+           if (((Coord2D)entry.getValue()).equals(coord))
+               return entry.getKey();
+       }
+       return null;
+    }
+
+    @Override
+    public void initPosPlayers(Player p1, Coord p1Spawn) {
+        grid.getPlayersCoord().put(p1,p1Spawn);
+        for (Map.Entry<Player,Coord> entry:grid.getPlayersCoord().entrySet()){
+            Coord2D coord = (Coord2D) entry.getValue();
+            Cell tmp = grid.getGrille()[coord.getY()][coord.getX()];
+            if (tmp instanceof Corridor){
+                Corridor corridor = (Corridor) tmp;
+                corridor.addCharacter(entry.getKey().getCharacter());
+            }
+        }
     }
 }
