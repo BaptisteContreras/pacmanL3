@@ -68,12 +68,15 @@ public class Grid2dBuilder extends GridBuilder {
     }
 
     @Override
-    public void addEnnemy(Coord coord, Player ennemy) {
+    public boolean addEnnemy(Coord coord, Player ennemy) {
         Coord2D c2d = (Coord2D) coord;
         if (grid.getGrille()[c2d.getY()][c2d.getX()] instanceof Corridor){
-            if (checkIfEmpty(coord))
+            if (checkIfEmpty(coord)){
                 grid.setPlayerCoord(ennemy,coord);
+                return true;
+            }
         }
+        return false;
     }
 
 
@@ -117,6 +120,7 @@ public class Grid2dBuilder extends GridBuilder {
         grid.getPlayersCoord().put(p1,p1Spawn);
         for (Map.Entry<Player,Coord> entry:grid.getPlayersCoord().entrySet()){
             Coord2D coord = (Coord2D) entry.getValue();
+           // System.out.println("during init : " + coord);
             Cell tmp = grid.getGrille()[coord.getY()][coord.getX()];
             if (tmp instanceof Corridor){
                 Corridor corridor = (Corridor) tmp;

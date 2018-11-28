@@ -28,7 +28,7 @@ public abstract class GridBuilder implements Serializable {
     public abstract void addConsumable(Coord coord,Consumable cons);
     public abstract void replace(Coord coord, Cell cell);
     public abstract void reWall(Coord coord);
-    public abstract void addEnnemy(Coord coord, Player ennemy);
+    public abstract boolean addEnnemy(Coord coord, Player ennemy);
 
     public abstract void rebuild(int width, int height);
 

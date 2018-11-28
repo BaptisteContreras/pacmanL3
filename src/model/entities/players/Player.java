@@ -6,6 +6,7 @@ import model.effects.Effect;
 import model.entities.characters.Character;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Player implements Serializable {
 
@@ -17,7 +18,7 @@ public abstract class Player implements Serializable {
         score = new Score();
     }
 
-    public java.util.Map<Effect, Effect> getEffects(){
+    public List<Effect> getEffects(){
         return character.getEffets();
     }
 

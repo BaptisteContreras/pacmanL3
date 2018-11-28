@@ -15,7 +15,7 @@ public abstract class Character extends Entity {
     protected boolean alive;
     protected boolean invulnerability;
     protected int respawnTime;
-    protected Map<Effect,Effect> effets;
+    protected List<Effect> effets;
     protected int life;
 
     public Character(String skin, Direction direction, int speed, boolean alive, boolean invulnerability, int respawnTime) {
@@ -26,7 +26,7 @@ public abstract class Character extends Entity {
         this.alive = alive;
         this.invulnerability = invulnerability;
         this.respawnTime = respawnTime;
-        effets = new HashMap<>();
+        effets = new ArrayList<>();
     }
     public Character(String skin, Direction direction, int speed, boolean alive, boolean invulnerability, int respawnTime,int lives) {
         super(skin);
@@ -36,7 +36,7 @@ public abstract class Character extends Entity {
         this.alive = alive;
         this.invulnerability = invulnerability;
         this.respawnTime = respawnTime;
-        effets = new HashMap<>();
+        effets = new ArrayList<>();
     }
 
     public int getLife() {
@@ -47,7 +47,7 @@ public abstract class Character extends Entity {
         effets.clear();
     }
     public void addEffect(Effect effect){
-        effets.put(effect,effect);
+        System.out.println("PUT : "+effets.add(effect));
     }
     public void removeEffect(Effect effect){
         effets.remove(effect);
@@ -59,21 +59,16 @@ public abstract class Character extends Entity {
 
     public void dicreaseEffectDuration(){
         // TODO supprimer les effets périmés.
-        Set keys = effets.keySet();
-        Iterator it = keys.iterator();
-        while (it.hasNext()){
-            Effect effect = (Effect) it.next();
-            effect.decremente();
-
+        for (Effect e:effets){
+            e.decremente();
         }
+
     }
 
     public boolean hasEffect(Class p){
-        Set keys = effets.keySet();
-        Iterator it = keys.iterator();
-        while (it.hasNext()){
-            Effect effect = (Effect) it.next();
-            if (effect.getClass().getName().equals(p.getName())){
+
+        for (Effect effect:effets) {
+            if (effect.getClass().getName().equals(p.getName())) {
                 if (effect.isActive())
                     return true;
             }
@@ -81,7 +76,7 @@ public abstract class Character extends Entity {
         return false;
     }
 
-    public Map<Effect, Effect> getEffets() {
+    public List<Effect> getEffets() {
         return effets;
     }
 

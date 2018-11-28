@@ -61,8 +61,8 @@ public abstract class Map implements Serializable {
             if (c.equals(coord))
                 return;
         }
-        gridBuilder.addEnnemy(coord,p);
-        players.add(p);
+        if (gridBuilder.addEnnemy(coord,p))
+            players.add(p);
     }
 
 

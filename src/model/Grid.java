@@ -58,6 +58,7 @@ public class Grid implements Serializable {
 
     public boolean applyMove(Player player){
         Coord currentCoord = playersCoord.get(player);
+        System.out.println(currentCoord + " :  "+player);
         Coord moveCoord = translateDirection(player.getMove(),currentCoord);
         moveCoord = (Coord2D) wrapper.wrap(moveCoord,grille,player.getCharacter());
         if (moveCorrect(player,currentCoord,moveCoord)){
@@ -65,6 +66,9 @@ public class Grid implements Serializable {
             ((Corridor)grille[((Coord2D)moveCoord).getY()][((Coord2D)moveCoord).getX()]).addCharacter(player.getCharacter());
             ((Corridor)grille[((Coord2D)currentCoord).getY()][((Coord2D)currentCoord).getX()]).delCharacter(player.getCharacter());
             return true;
+        }else{
+            ((Corridor)grille[((Coord2D)currentCoord).getY()][((Coord2D)currentCoord).getX()]).addCharacter(player.getCharacter());
+
         }
         return false;
     }
