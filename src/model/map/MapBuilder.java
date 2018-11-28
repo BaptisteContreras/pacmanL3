@@ -1,14 +1,13 @@
 package model.map;
 
 import model.Direction;
-import model.Grid;
+import model.grid.Grid;
 import model.coordonates.Coord;
 import model.effects.*;
 import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
 import model.entities.characters.Ghost;
 import model.entities.consumables.Consumable;
-import model.entities.consumables.EffectConsumable;
 import model.entities.consumables.PacGomme;
 import model.entities.consumables.SuperPacGomme;
 import model.entities.players.AIPlayer;
@@ -84,6 +83,7 @@ public  abstract class MapBuilder {
         map.resizeMap(width,height);
     }
     public void rewall(Coord coord){
+        System.out.println("REWALL");
         map.deletePlayer(coord);
         map.deleteSpawn(coord);
         map.reWall(coord);}
@@ -120,11 +120,13 @@ public  abstract class MapBuilder {
     }
 
     public void registerBasicEffect(){
-        map.addEffect("Invulnérabilité",new Invulnerability(20));
+        map.addEffect("Invulnérabilité",new Invulnerability(30));
         map.addEffect("Double Point",new DoublePoint(30));
         map.addEffect("Vie bonus",new UpLifeEffect(30));
         map.addEffect("Vie malus",new LooseLifeEffect(30));
+        map.addEffect("Reset point",new ResetPointEffect(30));
     }
+
 
     public int getPtsPacGum() {
         return ptsPacGum;

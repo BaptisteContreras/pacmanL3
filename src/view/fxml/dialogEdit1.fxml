@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.editor.DialogueEdit1Controller">
    <children>
       <ListView fx:id="liste" layoutX="18.0" layoutY="7.0" prefHeight="231.0" prefWidth="367.0" />
-      <Button layoutX="159.0" layoutY="348.0" mnemonicParsing="false" onAction="#create" prefHeight="25.0" prefWidth="85.0" text="Créer" />
+      <Button layoutX="133.0" layoutY="344.0" mnemonicParsing="false" onAction="#create" prefHeight="41.0" prefWidth="122.0" styleClass="btnui" stylesheets="@../../assets/css/dialog.css" text="Créer" />
       <TextField fx:id="name" layoutX="53.0" layoutY="272.0" prefHeight="25.0" prefWidth="281.0" />
       <Text layoutX="14.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom :" />
       <TextField fx:id="duree" layoutX="54.0" layoutY="310.0" prefHeight="25.0" prefWidth="281.0" />

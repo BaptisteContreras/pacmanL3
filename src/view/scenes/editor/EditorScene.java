@@ -42,6 +42,8 @@ public class EditorScene extends GameScene {
 
     public EditorScene(Parent root, double width, double height) {
         super(root, width, height);
+        getStylesheets().add("assets/css/editor.css");
+        System.out.println("Stylesheets for the editor have been loaded with success !");
     }
 
     public EditorScene(Parent root, Paint fill) {

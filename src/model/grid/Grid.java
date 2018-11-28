@@ -1,5 +1,6 @@
-package model;
+package model.grid;
 
+import model.Direction;
 import model.coordonates.Coord;
 import model.coordonates.Coord2D;
 import model.entities.cells.Cell;
@@ -105,7 +106,7 @@ public class Grid implements Serializable {
         return false;
     }
 
-    private Coord translateDirection(Direction d,Coord c){
+    private Coord translateDirection(Direction d, Coord c){
         Coord2D current = (Coord2D) c;
         switch (d){
             case TOP: return new Coord2D(current.getX(),current.getY()-1);

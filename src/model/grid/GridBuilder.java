@@ -1,4 +1,4 @@
-package model;
+package model.grid;
 
 import model.coordonates.Coord;
 import model.effects.Effect;
@@ -25,9 +25,9 @@ public abstract class GridBuilder implements Serializable {
     public abstract void replaceGridBy(Cell[][] newGrid);
     public abstract void setRespawnTime(int time);
     public abstract void setEffect(Coord coord, Effect effect);
-    public abstract void addConsumable(Coord coord,Consumable cons);
-    public abstract void replace(Coord coord, Cell cell);
-    public abstract void reWall(Coord coord);
+    public abstract boolean addConsumable(Coord coord,Consumable cons);
+    public abstract boolean replace(Coord coord, Cell cell);
+    public abstract boolean reWall(Coord coord);
     public abstract boolean addEnnemy(Coord coord, Player ennemy);
 
     public abstract void rebuild(int width, int height);
@@ -77,4 +77,6 @@ public abstract class GridBuilder implements Serializable {
     }
 
     public abstract void initPosPlayers(Player p1, Coord p1Spawn);
+
+    public abstract boolean hadConsu(Coord coord);
 }

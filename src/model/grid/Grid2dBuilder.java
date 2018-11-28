@@ -1,4 +1,4 @@
-package model;
+package model.grid;
 
 import model.coordonates.Coord;
 import model.coordonates.Coord2D;
@@ -47,24 +47,33 @@ public class Grid2dBuilder extends GridBuilder {
     }
 
     @Override
-    public void addConsumable(Coord coord, Consumable cons) {
+    public boolean addConsumable(Coord coord, Consumable cons) {
         Coord2D coordCorridor = (Coord2D) coord;
         if (grid.getGrille()[coordCorridor.getY()][coordCorridor.getX()] instanceof Corridor){
             ((Corridor)grid.getGrille()[coordCorridor.getY()][coordCorridor.getX()]).setConsumable(cons);
+            return true;
         }
 
+        return false;
+
     }
 
     @Override
-    public void replace(Coord coord, Cell cell) {
+    public boolean replace(Coord coord, Cell cell) {
         Coord2D coordReplace = (Coord2D) coord;
+        boolean hadConsu = false;
+        if (grid.getGrille()[coordReplace.getY()][coordReplace.getX()] instanceof Corridor){
+            if (((Corridor)grid.getGrille()[coordReplace.getY()][coordReplace.getX()]).getConsumable() != null)
+                hadConsu = true;
+        }
         grid.getGrille()[coordReplace.getY()][coordReplace.getX()] = cell;
+        return hadConsu;
 
     }
 
     @Override
-    public void reWall(Coord coord) {
-        replace(coord,new Wall(null));
+    public boolean reWall(Coord coord) {
+        return replace(coord,new Wall(null));
     }
 
     @Override
@@ -127,5 +136,14 @@ public class Grid2dBuilder extends GridBuilder {
                 corridor.addCharacter(entry.getKey().getCharacter());
             }
         }
+    }
+
+    @Override
+    public boolean hadConsu(Coord coord) {
+        Coord2D c2d = (Coord2D) coord;
+        if ((grid.getGrille()[c2d.getY()][c2d.getX()] instanceof Corridor)){
+             return ((Corridor)grid.getGrille()[c2d.getY()][c2d.getX()]).getConsumable() != null;
+        }
+        return false;
     }
 }

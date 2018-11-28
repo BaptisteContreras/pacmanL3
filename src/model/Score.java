@@ -22,4 +22,8 @@ public class Score implements Serializable {
     public int getScore(){
         return valeur;
     }
+
+    public void reset(){
+        valeur = 0;
+    }
 }

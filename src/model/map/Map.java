@@ -1,7 +1,7 @@
 package model.map;
 
-import model.Grid;
-import model.GridBuilder;
+import model.grid.Grid;
+import model.grid.GridBuilder;
 import model.MetaData;
 import model.TypeMap;
 import model.coordonates.Coord;
@@ -28,6 +28,9 @@ public abstract class Map implements Serializable {
 
     protected MetaData metaData;
 
+
+    protected int nbConsommable;
+
     private java.util.Map<String,Effect> customMapEffect;
 
     protected int width;
@@ -46,10 +49,16 @@ public abstract class Map implements Serializable {
         ghostSpawn = new ArrayList<>();
         customMapEffect = new HashMap<>();
         players = new ArrayList<>();
+
         metaData = new MetaData("new01",1.0,TypeMap.MULTI,true);
 
 
 
+    }
+
+    public void upNbConso(){
+        System.out.println("Nb conso up");
+        nbConso++;
     }
 
     public MetaData getMetaData() {
@@ -83,13 +92,27 @@ public abstract class Map implements Serializable {
         gridBuilder.setEffect(coord,effect);
     }
     public  void addConsumable(Coord coord,Consumable cons){
-        gridBuilder.addConsumable(coord,cons);
+        boolean hadConsu = gridBuilder.hadConsu(coord);
+        if (gridBuilder.addConsumable(coord,cons)){
+            if (!cons.isNegativeEffect()){
+                if (!hadConsu)
+                    upNbConso();
+            }else{
+                if (hadConsu)
+                    nbConso--;
+            }
+        }
+
     }
     public  void replace(Coord coord, Cell cell){
-        gridBuilder.replace(coord,cell);
+        if(gridBuilder.replace(coord,cell)){
+            nbConso--;
+        }
     }
     public void reWall(Coord coord){
-        gridBuilder.reWall(coord);
+        if(gridBuilder.reWall(coord)){
+            nbConso--;
+        }
     }
 
     public void resizeMap(int width,int height){
@@ -201,6 +224,7 @@ public abstract class Map implements Serializable {
         gridBuilder.initPosPlayers(p1,p1Spawn);
 
     }
+
 
     public Coord getRealHumanSpawn(){
         Random r = new Random();

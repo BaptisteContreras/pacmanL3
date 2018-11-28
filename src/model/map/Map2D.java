@@ -1,6 +1,6 @@
 package model.map;
 
-import model.Grid2dBuilder;
+import model.grid.Grid2dBuilder;
 
 public class Map2D extends Map {
 

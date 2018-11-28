@@ -3,6 +3,7 @@ package controller;
 import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,7 @@ import model.ThreadRunner;
 import model.coordonates.Coord2D;
 import model.entities.players.HumanPlayer;
 import model.map.Map2dBuilder;
+import model.map.MapBuilder;
 import view.scenes.game.PlayScene;
 
 import java.net.URL;
@@ -41,9 +43,12 @@ public class PlayController extends Controller {
 
     private List<HumanPlayer> players;
 
+    private String currentMap;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnBack.setOnAction((evt) -> back(null));
+        currentMap = "default.map";
 
     }
 
@@ -74,10 +79,10 @@ public class PlayController extends Controller {
 
         model = new JeuModel();
        // model.initV1(5,5,10,new Coord2D(4,3),pseudo);
-        model.init(new Map2dBuilder(),pseudo,"default.map",200);
+        model.init(new Map2dBuilder(),pseudo,currentMap,200);
 
         players = model.getHumanPlayers();
-        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,20,20,players);
+        ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,model.getCells().length,model.getCells()[0].length,players);
         ThreadRunner runner = new ThreadRunner(model);
         Thread handler = new Thread(runner);
         handler.start();
@@ -104,6 +109,22 @@ public class PlayController extends Controller {
     }
 
     public void changeMap(){
+        Map2dBuilder builder = new Map2dBuilder();
+        List<String> maps = builder.getMaps();
+
+        ChoiceDialog<String> dialogList = new ChoiceDialog<>(maps.get(0), maps);
+        dialogList.setTitle("Charger une map");
+        dialogList.setHeaderText("");
+        dialogList.setContentText("Choisissez une map à charger :");
+        Stage dialogStage2 = (Stage) dialogList.getDialogPane().getScene().getWindow();
+        dialogStage2.getIcons().add(new Image("/assets/interface/icon.png"));
+
+        Optional<String> res = dialogList.showAndWait();
+
+        if (res.isPresent()){
+            currentMap = res.get();
+            startGame();
+        }
 
     }
 

@@ -19,6 +19,8 @@ public class DialogEffectScene extends Scene {
 
     public DialogEffectScene(Parent root, double width, double height) {
         super(root, width, height);
+        getStylesheets().add("assets/css/dialog.css");
+        System.out.println("Stylesheets for the editor have been loaded with success !");
     }
 
     public DialogEffectScene(Parent root, Paint fill) {

@@ -1,6 +1,5 @@
 package model.wrapper;
 
-import model.Grid;
 import model.coordonates.Coord;
 import model.coordonates.Coord2D;
 import model.entities.cells.Cell;
@@ -8,10 +7,6 @@ import model.entities.cells.Corridor;
 import model.entities.cells.Wall;
 import model.entities.characters.Character;
 import model.entities.characters.Ennemy;
-import model.entities.characters.Ghost;
-import model.entities.players.Player;
-
-import java.util.Map;
 
 public class Wrapper2D extends Wrapper {
 

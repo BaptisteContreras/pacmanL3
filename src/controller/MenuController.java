@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import view.MainFrame;
 import view.scenes.editor.EditorScene;
@@ -66,6 +66,7 @@ public class MenuController extends Controller {
             try {
                 AnchorPane parentContent = FXMLLoader.load(getClass().getResource(("../view/fxml/menu.fxml")));
                 MainFrame.currentStage.setMaximized(true);
+                root.setStyle("-fx-background-color: #" + "000000");
                 root.getChildren().setAll(parentContent);
             } catch (IOException ex) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);

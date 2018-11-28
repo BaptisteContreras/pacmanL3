@@ -10,9 +10,9 @@ import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
 import model.entities.consumables.PacGomme;
 import model.entities.consumables.SuperPacGomme;
-import model.entities.players.AIPlayer;
 import model.entities.players.HumanPlayer;
 import model.entities.players.Player;
+import model.grid.Grid;
 import model.map.Map;
 import model.map.MapBuilder;
 
@@ -41,7 +41,7 @@ public class JeuModel extends java.util.Observable {
         while (!finish){
             for (Player p : playerList){
                 if (p.getCharacter().isAlive()){
-                    System.out.println(p+" : "+p.getCharacter().getEffets());
+                    //System.out.println(p+" : "+p.getCharacter().getLife());
                     if (grid.eatConsumable(p))
                         nbConsombaleLeft-=1;
                     grid.applyMove(p);
@@ -55,8 +55,7 @@ public class JeuModel extends java.util.Observable {
                     }
                 }
             }
-            System.out.println("_____________");
-            
+
 
             finish = gameFinished();
 
@@ -103,7 +102,8 @@ public class JeuModel extends java.util.Observable {
         Player p1 = new HumanPlayer(new PacMan(Direction.BOTTOM,5,true,false,0),pseudo);
         builder.loadMap(mapName);
         Map map = builder.getMap();
-        nbConsombaleLeft = conso;
+        nbConsombaleLeft = map.getNbConso();
+        System.out.println("nb conso : "+nbConsombaleLeft);
         map.initGridToPlay(p1);
         spawnGhost = map.realGhostSpawn();
         grid = map.getGrid();
