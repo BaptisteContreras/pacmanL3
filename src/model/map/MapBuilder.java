@@ -105,7 +105,11 @@ public  abstract class MapBuilder {
     }
 
     public void addSuperPacgum(Coord coord, Effect effect){
-        map.addConsumable(coord,new SuperPacGomme(ptsSuper,effect));
+        try {
+            map.addConsumable(coord,new SuperPacGomme(ptsSuper, (Effect) effect.clone()));
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
     public void addEffect(String name, Effect effect){
         map.addEffect(name,effect);

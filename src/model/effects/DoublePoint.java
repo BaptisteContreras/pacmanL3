@@ -9,6 +9,18 @@ public class DoublePoint extends PlayerEffect {
 
     @Override
     public void apply(Player p) {
-        p.getCharacter().addEffect(this);
+        try {
+            p.getCharacter().addEffect((Effect) this.clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "DoublePoint{" +
+                "duree=" + duree +
+                ", time=" + time +
+                '}';
     }
 }

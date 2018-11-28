@@ -38,14 +38,12 @@ public class JeuModel extends java.util.Observable {
     public void mainTurn(){
         // TODO lancer les ghost dans des thread mais pour Version 1 pas besoin
         // TODO les effets sont pour le moment infini
-        System.out.println("size debug : " + playerList.size());
         while (!finish){
             for (Player p : playerList){
                 if (p.getCharacter().isAlive()){
-                    //System.out.println(p+" : "+p.getCharacter().getEffets());
+                    System.out.println(p+" : "+p.getCharacter().getEffets());
                     if (grid.eatConsumable(p))
                         nbConsombaleLeft-=1;
-                    System.out.println(grid.getPlayersCoord().get(p));
                     grid.applyMove(p);
                     p.decreaseEffect();
                   //  applyOtherEffect(p);
@@ -110,16 +108,9 @@ public class JeuModel extends java.util.Observable {
         spawnGhost = map.realGhostSpawn();
         grid = map.getGrid();
         playerList = map.getPlayers();
-        System.out.println("HEYYYYYY : " + playerList.size());
-        for (Player p :playerList){
-            System.out.println(p);
-        }
-        System.out.println("-----------");
+
         playerList.add(p1);
-        System.out.println(playerList.size());
-        for (java.util.Map.Entry<Player,Coord> entry:grid.getPlayersCoord().entrySet()){
-            System.out.println("dbeug : " + entry.getKey() + " : "+ entry.getValue());
-        }
+
     }
 
     public void initV1(int w, int h, int conso, Coord2D spwan, String pseudo){

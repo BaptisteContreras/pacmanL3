@@ -325,7 +325,6 @@ public class EditorController extends Controller {
         Stage dialogStage2 = (Stage) dialogList.getDialogPane().getScene().getWindow();
         dialogStage2.getIcons().add(new Image("/assets/interface/icon.png"));
 
-// Traditional way to get the response value.
         Optional<String> res = dialogList.showAndWait();
         if (res.isPresent()){
             Effect tmpEffect = builder.getEffects().get(res.get());

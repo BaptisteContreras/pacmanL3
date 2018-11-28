@@ -47,7 +47,7 @@ public abstract class Character extends Entity {
         effets.clear();
     }
     public void addEffect(Effect effect){
-        System.out.println("PUT : "+effets.add(effect));
+        effets.add(effect);
     }
     public void removeEffect(Effect effect){
         effets.remove(effect);

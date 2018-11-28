@@ -210,7 +210,7 @@ public abstract class Map implements Serializable {
     }
     public Coord realGhostSpawn(){
         Random r = new Random();
-        int ind = r.nextInt((players.size()-1));
+        int ind = r.nextInt((players.size()));
         return gridBuilder.getGrid().getPlayersCoord().get(players.get(ind));
     }
 }
