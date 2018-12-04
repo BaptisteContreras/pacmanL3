@@ -70,7 +70,7 @@ public class RandomCourseBehaviour implements AIBehaviour, Serializable {
                 if(pacManCoord == neighbour){
                     //TODO on compare la direction et si sens inverse set speed a 0 bien penser a remettre le speed à default au debit de la fonction
                     //todo  peut etre que dans direction on peut rajouter un stop qui mets le speed a 0
-                    //todo demander a Baptiste si c'est pas trop degeu cmme soluce
+                    //todo demander a Baptiste si c'est pas trop degeu cmme soluces
                     return this.getTranslateDirectionFrom2Coord(ghostCell, pacManCoord);
                 }
             }

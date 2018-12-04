@@ -137,7 +137,7 @@ public class MenuController extends Controller {
         }
 
         ScoreScene ss = new ScoreScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());
-        ss.getRoot().setStyle("-fx-background-color: #" + "AAAAAA");
+        ss.getRoot().setStyle("-fx-background-color: #" + "000000");
 
         ScoreManager scoreManager = new ScoreManager();
         for (HumanPlayer p :scoreManager.readAllScores()){

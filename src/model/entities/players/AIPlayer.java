@@ -47,6 +47,10 @@ public class AIPlayer extends Player implements Observer {
         return this.behaviour.getBehaviourMove(this.model, this);
     }
 
+
+    //TODO engregistre temps nomMap
+    //boit dialogue fini ->boite dialogue scores
+    //
     @Override
     public void update(Observable o, Object arg) {
         //this.setModel((JeuModel) o);

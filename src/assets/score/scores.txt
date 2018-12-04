@@ -1,6 +1,12 @@
 rheqw;175
 Pacman;155
 clelette;125
+Pacman;105
+Pacman;100
+Pacman;95
+Pacman;85
+Pacman;85
+Pacman;85
 Pacman;80
 rlqghe;70
 Pacman;60
@@ -12,7 +18,9 @@ Pacman;45
 zektjg;45
 Pacman;45
 Pacman;45
+Pacman;30
 Pacman;5
+Pacman;0
 Pacman;0
 Pacman;0
 Pacman;0

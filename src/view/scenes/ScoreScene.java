@@ -13,6 +13,7 @@ public class ScoreScene extends Scene
 
     public ScoreScene(Parent root, double width, double height) {
         super(root, width, height);
+        //getStylesheets().add("assets/css/score.css");
     }
 
     public ScoreScene(Parent root, Paint fill) {
