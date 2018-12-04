@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Coord2D extends Coord {
 
-    private int x;
-    private int y;
+    private int x;//j
+    private int y;//i
 
     public Coord2D(int x, int y) {
         this.x = x;

@@ -72,6 +72,10 @@ public abstract class Player implements Serializable {
         score.reset();
     }
 
+    public void setScore(Score score) {
+        this.score = score;
+    }
+
     public void decreaseEffect(){
         character.dicreaseEffectDuration();
     }

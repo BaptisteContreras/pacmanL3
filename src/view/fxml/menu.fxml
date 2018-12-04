@@ -8,6 +8,6 @@
       <Button layoutX="523.0" layoutY="168.0" mnemonicParsing="false" onAction="#play" prefWidth="200.0" styleClass="btn-menu" stylesheets="@../../assets/css/menu.css" text="Jouer" />
       <Button layoutX="523.0" layoutY="236.0" mnemonicParsing="false" onAction="#editor" prefWidth="200.0" styleClass="btn-menu" stylesheets="@../../assets/css/menu.css" text="Editeur " />
       <Button fx:id="quit" layoutX="523.0" layoutY="371.0" mnemonicParsing="false" prefWidth="200.0" styleClass="btn-menu" stylesheets="@../../assets/css/menu.css" text="Quitter" />
-      <Button layoutX="523.0" layoutY="304.0" mnemonicParsing="false" prefWidth="200.0" styleClass="btn-menu" stylesheets="@../../assets/css/menu.css" text="Score" />
+      <Button layoutX="523.0" layoutY="304.0" mnemonicParsing="false" onAction="#scores" prefWidth="200.0" styleClass="btn-menu" stylesheets="@../../assets/css/menu.css" text="Score" />
    </children>
 </AnchorPane>

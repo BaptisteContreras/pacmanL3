@@ -20,4 +20,12 @@ public abstract class Cell extends Entity {
     public void setCoordonnee(Coord coordonnee) {
         this.coordonnee = coordonnee;
     }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "coordonnee=" + coordonnee +
+                //"type=" + this.getClass().getName()+
+                '}';
+    }
 }

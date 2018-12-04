@@ -1,6 +1,5 @@
 package controller;
 
-import controller.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
@@ -13,7 +12,6 @@ import javafx.stage.Stage;
 import model.Direction;
 import model.JeuModel;
 import model.ThreadRunner;
-import model.coordonates.Coord2D;
 import model.entities.players.HumanPlayer;
 import model.map.Map2dBuilder;
 import model.map.MapBuilder;
@@ -45,6 +43,8 @@ public class PlayController extends Controller {
 
     private String currentMap;
 
+    protected Thread handler;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnBack.setOnAction((evt) -> back(null));
@@ -52,7 +52,15 @@ public class PlayController extends Controller {
 
     }
 
+    @Override
+    public void back(Stage s) {
+        this.shutModelThreadDownIfAlive();
+        super.back(s);
+    }
+
     public void startGame(){
+
+        this.shutModelThreadDownIfAlive();
         String pseudo = "Player 1";
         System.out.println("game start");
         TextInputDialog dialog = new TextInputDialog("Pacman");
@@ -84,7 +92,7 @@ public class PlayController extends Controller {
         players = model.getHumanPlayers();
         ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,model.getCells().length,model.getCells()[0].length,players);
         ThreadRunner runner = new ThreadRunner(model);
-        Thread handler = new Thread(runner);
+        handler = new Thread(runner);
         handler.start();
        // model.mainTurn();
         //((PlayScene)btnBack.getScene()).test();
@@ -128,6 +136,14 @@ public class PlayController extends Controller {
 
     }
 
+    private void shutModelThreadDownIfAlive(){
+        if (this.handler != null){
+            if (this.handler.isAlive())
+                this.handler.stop();
+            System.out.println("game stopped");
+        }
+    }
 
-
+    public static class ScoreController {
+    }
 }

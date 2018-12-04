@@ -83,7 +83,6 @@ public class Grid implements Serializable {
                 Consumable consumable = corridor.getConsumable();
                 if (consumable != null){
                     p.upScore(consumable.getNbPoints());
-
                     // Si le consomable à un effet
                     if (consumable instanceof EffectConsumable){
                      ((EffectConsumable) consumable).applyEffect(p);
@@ -229,15 +228,17 @@ public class Grid implements Serializable {
 
     @Override
     public String toString() {
-        return "Grid{" +
-                "grille=" + (grille == null ? null : Arrays.asList(grille)) +
-                ", playersCoord=" + playersCoord +
-                ", pacmanCoord=" + pacmanCoord +
-                ", width=" + width +
-                ", height=" + height +
-                ", respawnTime=" + respawnTime +
-                ", wrapper=" + wrapper +
-                '}';
+        String returnVal = "";
+        for (int i=0 ; i<this.height ;i++){
+            for(int j=0 ; j<this.width ; j++){
+                if(this.grille[i][j] instanceof Wall)
+                    returnVal +="X";
+                else
+                    returnVal+="0";
+            }
+            returnVal+="\n";
+        }
+        return returnVal;
     }
 
     public void setHeight(int height) {

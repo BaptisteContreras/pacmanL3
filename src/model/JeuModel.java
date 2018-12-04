@@ -10,6 +10,8 @@ import model.entities.characters.Ghost;
 import model.entities.characters.PacMan;
 import model.entities.consumables.PacGomme;
 import model.entities.consumables.SuperPacGomme;
+import model.entities.players.AI.FollowBehaviour;
+import model.entities.players.AIPlayer;
 import model.entities.players.HumanPlayer;
 import model.entities.players.Player;
 import model.grid.Grid;
@@ -28,6 +30,7 @@ public class JeuModel extends java.util.Observable {
     private boolean finish;
     private Coord spawnGhost;
     private boolean start;
+    protected HumanPlayer currentHPlayer; //a remplacer par plus efficace
 
     public JeuModel() {
         finish = false;
@@ -46,6 +49,8 @@ public class JeuModel extends java.util.Observable {
                         nbConsombaleLeft-=1;
                     grid.applyMove(p);
                     p.decreaseEffect();
+                    if (p instanceof HumanPlayer)
+                        this.currentHPlayer =(HumanPlayer) p;
                   //  applyOtherEffect(p);
                 }else{
                     p.getCharacter().setRespawnTime(p.getCharacter().getRespawnTime()-1);
@@ -73,6 +78,8 @@ public class JeuModel extends java.util.Observable {
         }
         System.out.println("finished ! gg");
         // TODO retourner resultat partie et notifier vue
+        ScoreManager scoreManager = new ScoreManager();
+        scoreManager.writeOneScore(this.currentHPlayer);
         setChanged();
         notifyObservers();
 
@@ -109,6 +116,15 @@ public class JeuModel extends java.util.Observable {
         grid = map.getGrid();
         playerList = map.getPlayers();
 
+        System.out.println("HEYYYYYY : " + playerList.size());
+        for (Player p : playerList){
+            ((AIPlayer) p).initAI(this);
+            //((AIPlayer) p).setBehaviour(new FollowBehaviour());
+            //TODO l'ia par defaut est aleatoire donc il faudra la set avec FollowBehaviour
+            // TODo jeu a deux sur meme clavier
+        }
+
+        System.out.println("-----------");
         playerList.add(p1);
 
     }
@@ -227,8 +243,5 @@ public class JeuModel extends java.util.Observable {
         return tmp;
     }
 
-
-
-
-
+    public Grid getGrid() { return grid; }
 }

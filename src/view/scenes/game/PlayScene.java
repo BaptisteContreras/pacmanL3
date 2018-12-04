@@ -132,13 +132,13 @@ public class PlayScene extends GameScene {
         score1Label.setLayoutX(0);
         score1Label.setLayoutY(400);
         score1Label.getStyleClass().add("infos");
-        score1Label.getStyleClass().add("score");
+        score1Label.getStyleClass().add("score.css");
         if (players.size() > 1){
             score2Label = new Text(players.get(1).getPseudo()+" : 0 ");
             score2Label.setLayoutX(0);
             score2Label.setLayoutY(450);
             score2Label.getStyleClass().add("infos");
-            score2Label.getStyleClass().add("score");
+            score2Label.getStyleClass().add("score.css");
             rootScore.getChildren().add(score2Label);
         }
         rootScore.getChildren().add(timeLabel);

@@ -8,7 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import model.ScoreManager;
+import model.entities.players.HumanPlayer;
 import view.MainFrame;
+import view.scenes.ScoreScene;
 import view.scenes.editor.EditorScene;
 import view.scenes.game.PlayScene;
 
@@ -26,6 +29,7 @@ public class MenuController extends Controller {
 
     @FXML
     private Button quit;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,7 +78,7 @@ public class MenuController extends Controller {
         });
     }
 
-    public void play(){
+    public void play() throws IOException{
         System.out.println("play");
         Parent root = null;
         try {
@@ -120,5 +124,26 @@ public class MenuController extends Controller {
 
         MainFrame.currentStage.setScene(ps);
 
+    }
+
+    public void scores(){
+        System.out.println("scores");
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/fxml/score.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ScoreScene ss = new ScoreScene(root,MainFrame.currentStage.getWidth(),MainFrame.currentStage.getHeight());
+        ss.getRoot().setStyle("-fx-background-color: #" + "AAAAAA");
+
+        ScoreManager scoreManager = new ScoreManager();
+        for (HumanPlayer p :scoreManager.readAllScores()){
+            System.out.println(scoreManager.castPlayerToString(p));
+        }
+
+        MainFrame.currentStage.setScene(ss);
     }
 }
