@@ -1,10 +1,8 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,7 +23,7 @@ import java.util.ResourceBundle;
 
 import static java.lang.Thread.sleep;
 
-public class PlayController extends Controller {
+public class PlayController extends Controller  {
 
 
     @FXML
@@ -92,7 +90,7 @@ public class PlayController extends Controller {
 
         players = model.getHumanPlayers();
         ((PlayScene)btnBack.getScene()).initScene(gameroot,scoreroot,model,model.getCells().length,model.getCells()[0].length,players);
-        ThreadRunner runner = new ThreadRunner(model);
+        ThreadRunner runner = new ThreadRunner(model,this);
         handler = new Thread(runner);
         handler.start();
     }
@@ -144,12 +142,22 @@ public class PlayController extends Controller {
 
     public void endGame(){
 
-        Dialog dialog = new Dialog();
-        dialog.setContentText("Fin de la partie");
-        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        dialogStage.getIcons().add(new Image("/assets/interface/icon.png"));
-        dialog.setTitle(" Pacman L3");
-        dialog.showAndWait();
+       int res =  model.getNbConsombaleLeft();
+
+        Platform.runLater(() ->{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Fin de partie ! ");
+            alert.setHeaderText("");
+            if (res == 0){
+
+                alert.setContentText("Bravo vous avez gagné");
+            }else{
+                alert.setContentText("Mince vous avez perdu");
+
+            }
+
+            alert.showAndWait();
+        } );
     }
 
 }

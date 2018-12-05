@@ -88,7 +88,7 @@ public class PlayScene extends GameScene {
     }
 
     public void initScene(Pane game, Pane score, JeuModel model, int width, int height, List<HumanPlayer> players){
-        // TODO affichage pour map rectangle s
+        // TODO affichage pour map rectangle
         this.finishedDialogAlreadyPrint = false;
         if(cases!= null && cases.length > 0){
             for (int i = 0; i < cases.length; i++) {
