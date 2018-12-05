@@ -4,7 +4,8 @@
 }
 
 #time {
-
+    -fx-font: 25px "Arial";
+    -fx-text-fill: white;
     -fx-font-size: 50px;
 }
 
@@ -14,7 +15,8 @@
 
 .score{
     -fx-font: 25px "Arial";
-
+    -fx-text-fill: white;
+    -fx-fill: "#FFFFFF";
 }
 
 .btnui{

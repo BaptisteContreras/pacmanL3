@@ -31,8 +31,10 @@ public class JeuModel extends java.util.Observable {
     private Coord spawnGhost;
     private boolean start;
     protected HumanPlayer currentHPlayer; //a remplacer par plus efficace
+    protected StopWatch stopwatch;//timer
 
     public JeuModel() {
+        stopwatch = new StopWatch();
         finish = false;
         start = false;
         playerList = new ArrayList<>();
@@ -41,7 +43,10 @@ public class JeuModel extends java.util.Observable {
     public void mainTurn(){
         // TODO lancer les ghost dans des thread mais pour Version 1 pas besoin
         // TODO les effets sont pour le moment infini
+        stopwatch.start();
+
         while (!finish){
+            //System.out.println(this.stopwatch.getSeconds());
             for (Player p : playerList){
                 if (p.getCharacter().isAlive()){
                     //System.out.println(p+" : "+p.getCharacter().getLife());
@@ -77,6 +82,7 @@ public class JeuModel extends java.util.Observable {
             notifyObservers();
         }
         System.out.println("finished ! gg");
+        stopwatch.interrupt();
         // TODO retourner resultat partie et notifier vue
         ScoreManager scoreManager = new ScoreManager();
         scoreManager.writeOneScore(this.currentHPlayer);
@@ -244,4 +250,6 @@ public class JeuModel extends java.util.Observable {
     }
 
     public Grid getGrid() { return grid; }
+
+    public StopWatch getStopwatch() { return stopwatch; }
 }

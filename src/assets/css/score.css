@@ -14,4 +14,9 @@
 
 #mainPane{
     -fx-background-color: black;
+
+}
+.score{
+    -fx-font: 25px "Arial";
+
 }

@@ -14,13 +14,8 @@ public class ScoreManager {
 
     public ScoreManager() {
         this.scoreFile = new File("src/assets/score/scores.txt");
-        System.out.println("+++++++++++++++++++++++++++++++++++++++=   " + this.scoreFile.getAbsolutePath());
-        if (this.scoreFile.exists())
-            System.out.println("le fichier score.css existe");
-        else{
-            System.out.println("creation du fichier score.css ");
-
-        }
+        /*if (this.scoreFile.exists())
+            System.out.println("le fichier score.css existe");*/
     }
 
     public void writeOneScore(HumanPlayer player){
@@ -52,7 +47,8 @@ public class ScoreManager {
             while (reader.hasNextLine()){
                 str = reader.nextLine();
                 HumanPlayer playerTmp = this.castStringToPlayer(str);
-                allScores.add(playerTmp);
+                if (playerTmp != null)
+                    allScores.add(playerTmp);
             }
             reader.close();
 
@@ -64,6 +60,8 @@ public class ScoreManager {
     }
 
     private HumanPlayer castStringToPlayer(String str){
+        if (str.isEmpty())
+            return null;
         String values[] = str.split(";");
         HumanPlayer playerTmp = new HumanPlayer(null, values[0]);
         playerTmp.setScore(new Score(Integer.parseInt(values[1])));

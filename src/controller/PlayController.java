@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -94,8 +95,6 @@ public class PlayController extends Controller {
         ThreadRunner runner = new ThreadRunner(model);
         handler = new Thread(runner);
         handler.start();
-       // model.mainTurn();
-        //((PlayScene)btnBack.getScene()).test();
     }
 
     public void keyHandler(KeyEvent event){
@@ -113,7 +112,6 @@ public class PlayController extends Controller {
 
         System.out.println("key pressed : " + (event.getCode()));
 //        System.out.println("Direction : " + (players.get(0).getDirection()));
-
     }
 
     public void changeMap(){
@@ -139,11 +137,19 @@ public class PlayController extends Controller {
     private void shutModelThreadDownIfAlive(){
         if (this.handler != null){
             if (this.handler.isAlive())
-                this.handler.stop();
+                this.handler.interrupt();
             System.out.println("game stopped");
         }
     }
 
-    public static class ScoreController {
+    public void endGame(){
+
+        Dialog dialog = new Dialog();
+        dialog.setContentText("Fin de la partie");
+        Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        dialogStage.getIcons().add(new Image("/assets/interface/icon.png"));
+        dialog.setTitle(" Pacman L3");
+        dialog.showAndWait();
     }
+
 }

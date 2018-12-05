@@ -13,12 +13,34 @@ public class PacMan extends Character {
 
     @Override
     public String getSkin(){
-        switch (direction){
-            case BOTTOM: return "/assets/game/pacman_down.png";
-            case RIGHT: return "/assets/game/pacman.png";
-            case TOP: return "/assets/game/pacman_top.png";
-            case LEFT: return "/assets/game/pacman_left.png";
-            default: return skin;
+        if (this.invulnerability){
+            switch (direction){
+                case BOTTOM:
+                    return "/assets/game/invulnerable_pacman_down.png";
+                case RIGHT:
+                    return "/assets/game/invulnerable_pacman.png";
+                case TOP:
+                    return "/assets/game/invulnerable_pacman_top.png";
+                case LEFT:
+                    return "/assets/game/invulnerable_pacman_left.png";
+                default:
+                    return skin;
+            }
+        }
+        else {
+
+            switch (direction) {
+                case BOTTOM:
+                    return "/assets/game/pacman_down.png";
+                case RIGHT:
+                    return "/assets/game/pacman.png";
+                case TOP:
+                    return "/assets/game/pacman_top.png";
+                case LEFT:
+                    return "/assets/game/pacman_left.png";
+                default:
+                    return skin;
+            }
         }
     }
 }

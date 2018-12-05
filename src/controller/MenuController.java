@@ -141,7 +141,7 @@ public class MenuController extends Controller {
 
         ScoreManager scoreManager = new ScoreManager();
         for (HumanPlayer p :scoreManager.readAllScores()){
-            System.out.println(scoreManager.castPlayerToString(p));
+            //System.out.println(scoreManager.castPlayerToString(p));
         }
 
         MainFrame.currentStage.setScene(ss);

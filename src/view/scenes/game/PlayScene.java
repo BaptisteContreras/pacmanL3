@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -16,6 +17,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.JeuModel;
 import model.entities.cells.Cell;
 import model.entities.cells.Corridor;
@@ -37,7 +39,7 @@ public class PlayScene extends GameScene {
     private JeuModel model;
     private Pane rootGame;
     private Pane rootScore;
-
+    private boolean finishedDialogAlreadyPrint;
 
 
 
@@ -45,6 +47,7 @@ public class PlayScene extends GameScene {
     private Text titleLabel;
     private Text score1Label;
     private Text score2Label;
+    private Text pacManLifeLabel;
 
     public PlayScene(Parent root) {
         super(root);
@@ -53,7 +56,7 @@ public class PlayScene extends GameScene {
     public PlayScene(Parent root, double width, double height) {
         super(root, width, height);
         getStylesheets().add("assets/css/game.css");
-        System.out.println("Stylesheets for the game screen have been loaded with success !");
+        //System.out.println("Stylesheets for the game screen have been loaded with success !");
     }
 
     public PlayScene(Parent root, Paint fill) {
@@ -86,6 +89,14 @@ public class PlayScene extends GameScene {
 
     public void initScene(Pane game, Pane score, JeuModel model, int width, int height, List<HumanPlayer> players){
         // TODO affichage pour map rectangle
+        this.finishedDialogAlreadyPrint = false;
+        if(cases!= null && cases.length > 0){
+            for (int i = 0; i < cases.length; i++) {
+                for (int j = 0; j < cases[0].length; j++) {
+                    game.getChildren().remove(cases[i][j]);
+                }
+            }
+        }
         assetLoader = new AssetLoader("/assets/game");
         assets = assetLoader.loadAsset();
         cases = new Rectangle[height][width];
@@ -103,10 +114,18 @@ public class PlayScene extends GameScene {
         model.addObserver(new Observer() {
             @Override
             public void update(java.util.Observable o, Object arg) {
+                timeLabel.setText("Time : "+ model.getStopwatch().getHeureFormat());
+                pacManLifeLabel.setText("Life : " + model.getPacMan().getCharacter().getLife());
+                //System.out.println(model);
 
-                Platform.runLater(() ->{ updateScreen(model.getCells(),game,score,width,height);updateInfos(players,timeLabel,score1Label,score2Label);} );
 
-               // System.out.println("up to date");
+                Platform.runLater(() ->{
+                    updateScreen(model.getCells(),game,score,width,height);
+                    updateInfos(players,timeLabel,score1Label,score2Label);
+                    
+                } );
+
+               // //System.out.println("up to date");
             }
         });
 
@@ -123,6 +142,10 @@ public class PlayScene extends GameScene {
         timeLabel.setLayoutY(150);
         timeLabel.getStyleClass().add("infos");
         timeLabel.setId("time");
+        pacManLifeLabel = new Text("Vies : ");
+        pacManLifeLabel.setLayoutX(0);
+        pacManLifeLabel.setLayoutY(500);
+        pacManLifeLabel.getStyleClass().add("score");
         titleLabel = new Text("Scores ");
         titleLabel.setLayoutX(25);
         titleLabel.setLayoutY(300);
@@ -131,7 +154,7 @@ public class PlayScene extends GameScene {
         score1Label = new Text(players.get(0).getPseudo()+" : 0");
         score1Label.setLayoutX(0);
         score1Label.setLayoutY(400);
-        score1Label.getStyleClass().add("infos");
+        score1Label.getStyleClass().add("score");
         score1Label.getStyleClass().add("score.css");
         if (players.size() > 1){
             score2Label = new Text(players.get(1).getPseudo()+" : 0 ");
@@ -144,11 +167,14 @@ public class PlayScene extends GameScene {
         rootScore.getChildren().add(timeLabel);
         rootScore.getChildren().add(titleLabel);
         rootScore.getChildren().add(score1Label);
+        rootScore.getChildren().add(pacManLifeLabel);
     }
 
     public void updateInfos(List<HumanPlayer> players, Text time, Text score1, Text score2){
         HumanPlayer p1 = players.get(0);
         score1.setText(p1.getPseudo()+" : "+p1.getScore());
+        //timeLabel.setText("Time : " + String.valueOf(time).toString());
+        ////System.out.println(timeLabel.toString());
         if (players.size()>1){
             HumanPlayer p2 = players.get(1);
             score2.setText(p2.getPseudo()+" : "+p2.getScore());
@@ -174,7 +200,7 @@ public class PlayScene extends GameScene {
             for (int j = 0; j < width; j++) {
                 String path = "/assets/game/border.jpg";
                 Cell cell = grille[i][j];
-             //   System.out.println(grille[i][j]);
+             //   //System.out.println(grille[i][j]);
 
                 if (cell instanceof Wall){ // WALL
                     path = cell.getSkin();
