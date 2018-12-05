@@ -1,6 +1,8 @@
+Pacman;380
 Pacman;225
 Pacman;180
 Pacman;145
+Pacman;140
 Pacman;125
 Pacman;100
 Pacman;80
@@ -40,6 +42,8 @@ Pacman;35
 Pacman;30
 Pacman;25
 Pacman;10
+Pacman;0
+Pacman;0
 Pacman;0
 Pacman;0
 Pacman;0
