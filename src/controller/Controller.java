@@ -28,7 +28,7 @@ public abstract class Controller implements Initializable {
         System.out.println("back to menu");
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../view/fxml/menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../view/fxml/menu.fxml")); // Dégueulasse
             root.setStyle("-fx-background-color: #" + "000000");
         } catch (IOException e) {
             e.printStackTrace();
